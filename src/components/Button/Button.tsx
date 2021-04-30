@@ -1,4 +1,4 @@
-import React from 'react';
+import { Button as MUIButton } from '@material-ui/core';
 import styles from './Button.scss';
 
 export interface ButtonProps {
@@ -27,23 +27,12 @@ export interface ButtonProps {
 /**
  * Primary UI component for user interaction
  */
-export const Button: React.FC<ButtonProps> = ({
-  primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
-  ...props
-}) => {
-  const mode = primary ? styles['storybook-button--primary'] : styles['storybook-button--secondary'];
-  
+export const Button = (props: ButtonProps) => {
   return (
-    <button
-      type="button"
-      className={[styles['storybook-button'], styles[`storybook-button--${size}`], mode].join(' ')}
-      style={{ backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
+    <MUIButton classes={{
+      root: props.primary ? styles[`storybook-button-primary`] : styles[`storybook-button`]
+    }}>
+      {props.label}
+    </MUIButton>
   );
 };
