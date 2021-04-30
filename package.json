@@ -25,15 +25,20 @@
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react": "^6.2.9",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@types/jest": "^26.0.23",
     "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.4",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "sass": "^1.32.12",
+    "sass-loader": "^10",
+    "style-loader": "^2.0.0",
     "ts-jest": "^26.5.5",
     "typescript": "^4.2.4"
   },
@@ -41,5 +46,7 @@
     "react": ">=17.0.1",
     "react-dom": ">=17.0.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@material-ui/core": "^4.11.4"
+  }
 }
