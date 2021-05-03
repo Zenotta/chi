@@ -1,37 +1,47 @@
-import React from 'react';
+import { ButtonProps } from "@material-ui/core";
 import { Story, Meta } from '@storybook/react';
+import { STORYBOOK_VALS } from '../../utils';
 
-import { Button, ButtonProps } from './Button';
+import { Button, ChiButtonProps } from './Button';
 
 export default {
   title: 'Example/Button',
   component: Button,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 } as Meta;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const Template: Story<ButtonProps & ChiButtonProps> = (args) => {
+  return (
+    <Button {...args} />
+  );
+};
 
 export const Primary = Template.bind({});
 Primary.args = {
-  primary: true,
-  label: 'Button',
+  color: "primary",
+  backgroundColour: STORYBOOK_VALS.primary,
+  textColour: "#fff",
+  children: "Click Me"
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
-  label: 'Button',
+  children: "Click Me",
+  backgroundColour: STORYBOOK_VALS.primary,
+  textColour: "#fff",
 };
 
 export const Large = Template.bind({});
 Large.args = {
   size: 'large',
-  label: 'Button',
+  children: "Click Me",
+  backgroundColour: STORYBOOK_VALS.primary,
+  textColour: "#fff",
 };
 
 export const Small = Template.bind({});
 Small.args = {
   size: 'small',
-  label: 'Button',
+  children: "Click Me",
+  backgroundColour: STORYBOOK_VALS.primary,
+  textColour: "#fff",
 };

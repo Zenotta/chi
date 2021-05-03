@@ -4,13 +4,13 @@ import { Button } from './Button';
 
 describe('Button', () => {
   test('renders a default button with text', async () => {
-    render(<Button label="Click me" />);
+    render(<Button>Click me</Button>);
 
     expect(screen.getByText('Click me')).toBeInTheDocument();
   });
   test('handles onClick', async () => {
     const mockOnClick = jest.fn();
-    render(<Button onClick={mockOnClick} label="Click me" />);
+    render(<Button onClick={mockOnClick}>Click me</Button>);
     fireEvent.click(screen.getByText('Click me'));
 
     expect(mockOnClick).toHaveBeenCalledTimes(1);

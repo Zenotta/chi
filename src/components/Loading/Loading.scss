@@ -1,0 +1,24 @@
+.loadingContainer {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loadingContainer svg {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    shape-rendering: auto;
+    vertical-align: middle;
+}
+
+.loadingScreenreader {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+    pointer-events: none;
+}
