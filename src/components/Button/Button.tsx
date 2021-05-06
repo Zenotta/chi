@@ -75,7 +75,8 @@ export const Button = (props: ButtonProps & ChiButtonProps) => {
 
   return (
     <MUIButton classes={{
-      root: mainClass().root
+      root: mainClass().root,
+      contained: styles.buttonContained
     }}
       {...props}>
       {props.loading &&
