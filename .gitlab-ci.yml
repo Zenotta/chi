@@ -22,7 +22,7 @@ install:
 build:
   stage: build
   script:
-    - CI=false npm run build
+    - CI=false npm run build-storybook
   artifacts:
     paths:
       - build
