@@ -8,6 +8,7 @@ export const Loading = (props: ChiLoadingProps) => {
     return (
         <div className={styles.loadingContainer} role="status">
             <svg
+                className={styles.loadingSvg}
                 viewBox="0 0 100 100"
                 preserveAspectRatio="xMidYMid">
                 <circle
