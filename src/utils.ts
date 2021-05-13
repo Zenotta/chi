@@ -1,5 +1,6 @@
 export const STORYBOOK_VALS = {
     primary: "#2a8def",
+    disabled: "#b4b4b4",
     cta: "#EA3546"
 }
 

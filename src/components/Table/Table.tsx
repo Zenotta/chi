@@ -23,7 +23,8 @@ export interface TableProps {
     sortable?: boolean,
     orderBy?: string,
     order?: 'asc' | 'desc',
-    rowCount?: number
+    rowCount?: number,
+    styles?: any
 }
 
 interface HeaderId {
@@ -35,13 +36,21 @@ export const Table = (props: TableProps) => {
     const [order, setOrder] = useState(props.order || 'asc');
     const headerIds: HeaderId[] = [];
 
-    // Maps an input value to a generated ID
+    /** 
+     * Maps an input value to a generated ID
+     * 
+     * @param value {string} - Value to map
+     */
     const mapValueToId = (value: string): string => {
         let headerId = headerIds.filter(e => e.label == value);
         return headerId.length ? headerId[0].id : "";
     }
 
-    // Injects the unique ID for header inputs
+    /** 
+     * Injects the unique ID for header inputs
+     * 
+     * @param cells {TableCell[]} - Header cells to inject an ID into
+     */
     const injectHeaderId = (cells: TableCell[]): TableCell[] => {
         return cells.map((cell) => {
             if (!cell.id) {
@@ -58,7 +67,11 @@ export const Table = (props: TableProps) => {
         });
     }
 
-    // Injects the corresponding header ID for each row
+    /** 
+     * Injects the corresponding header ID for each row
+     * 
+     * @param rows {TableCell[][]} - Rows to inject corresponding header IDs into
+     */
     const injectBodyRowId = (rows: TableCell[][]): any[] => {
         return rows.map((row) => {
             let newRow: any = {};
@@ -71,14 +84,24 @@ export const Table = (props: TableProps) => {
         });
     }
 
-    // Handles a sort change
-    const handleRequestSort = (property: any) => {
-        const isAsc = orderBy === property && order === 'asc';
+    /** 
+     * Handles a sort change
+     * 
+     * @param id {string} - ID to sort by
+     */
+    const handleRequestSort = (id: any) => {
+        const isAsc = orderBy === id && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
+        setOrderBy(id);
     };
 
-    // Performs a descending comparison
+    /** 
+     * Performs a descending comparison
+     * 
+     * @param a {any} - First cell to compare
+     * @param b {any} - Second cell to compare
+     * @param orderBy {string} - ID to sort by
+     */
     const descendingComparator = (a: any, b: any, orderBy: string): number => {
         if (b[orderBy].value < a[orderBy].value) {
             return -1;
@@ -89,14 +112,24 @@ export const Table = (props: TableProps) => {
         return 0;
     }
 
-    // Gets the comparator based on ID (orderBy)
+    /** 
+     * Gets the comparator based on ID (orderBy)
+     * 
+     * @param a {any} - First cell to compare
+     * @param b {any} - Second cell to compare
+     */
     const getComparator = (): (a: any, b: any) => number => {
         return order === 'desc'
             ? (a: any, b: any) => descendingComparator(a, b, orderBy)
             : (a: any, b: any) => -descendingComparator(a, b, orderBy);
     }
 
-    // Performs a sort on body data by comparator
+    /** 
+     * Performs a sort on body data by comparator
+     * 
+     * @param body {TableCell[][]} - Table body cells to sort
+     * @param comparator {Function} - Function to compare through for sort
+     */
     const stableSort = (body: TableCell[][], comparator: (a: any, b: any) => number): TableCell[][] => {
         const stabilizedThis: any[] = body.map((el, index) => [el, index]);
         stabilizedThis.sort((a: any, b: any): any => {

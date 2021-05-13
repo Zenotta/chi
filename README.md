@@ -4,7 +4,7 @@ Chi is Zenotta's front end component library for use in blockchain UI applicatio
 
 ..
 
-## Installation
+## 📦 Installation
 
 ```
 npm install chi-ui
@@ -16,7 +16,7 @@ yarn add chi-ui
 
 ..
 
-## Development
+## 🔨 Development
 
 You can clone the repo locally:
 

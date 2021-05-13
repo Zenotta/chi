@@ -13,8 +13,9 @@ const Template: Story<TableProps> = (args) => {
     );
 };
 
-export const Data = Template.bind({});
-Data.args = {
+export const Sortable = Template.bind({});
+Sortable.args = {
+    sortable: true,
     header: [
         { value: "Block Hash", isNumeric: false },
         { value: "Previous Hash", isNumeric: false },
