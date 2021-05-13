@@ -16,6 +16,21 @@ yarn add chi-ui
 
 ..
 
+## 💻 Usage
+
+```javascript
+import { Button, Search } from 'chi-ui';
+
+const App = () => (
+  <>
+    <Button variant="contained">PRESS ME</Button>
+    <Search label="Search here..." />
+  </>
+);
+```
+
+..
+
 ## 🔨 Development
 
 You can clone the repo locally:
