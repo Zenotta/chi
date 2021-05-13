@@ -17820,9 +17820,40 @@ var TextField$1 = withStyles(styles$4, {
   name: 'MuiTextField'
 })(TextField);
 
-var styles$3 = ".storybook-button {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-weight: 700;\n  border: 0;\n  border-radius: 3em;\n  cursor: pointer;\n  display: inline-block;\n  line-height: 1; }\n\n.buttonContained {\n  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05) !important; }\n  .buttonContained[disabled], .buttonContained:disabled {\n    cursor: not-allowed !important;\n    color: #b4b4b4 !important;\n    background: #dfdfdf !important; }\n  .buttonContained:hover, .buttonContained:active {\n    box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.05), 0px 1px 1px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05) !important; }\n\n.loadingContainer {\n  width: 20px;\n  height: 20px;\n  margin-right: 6px;\n  margin-top: -7px; }\n  .loadingContainer.small {\n    width: 15px;\n    height: 15px;\n    margin-top: -10px; }\n";
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
 
-var styles$2 = ".loadingContainer {\n  display: block;\n  width: 100%;\n  height: auto;\n  margin-left: auto;\n  margin-right: auto; }\n\n.loadingSvg {\n  margin: auto;\n  width: 100%;\n  height: 100%;\n  display: inline-block;\n  shape-rendering: auto;\n  vertical-align: middle; }\n\n.loadingScreenreader {\n  visibility: hidden;\n  width: 0;\n  height: 0;\n  position: absolute;\n  pointer-events: none; }\n";
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$3 = ".Button_storybook-button__TVvey {\n  font-family: \"Nunito Sans\", \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  font-weight: 700;\n  border: 0;\n  border-radius: 3em;\n  cursor: pointer;\n  display: inline-block;\n  line-height: 1;\n}\n\n.Button_buttonContained__3P7t8 {\n  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05) !important;\n}\n.Button_buttonContained__3P7t8[disabled], .Button_buttonContained__3P7t8:disabled {\n  cursor: not-allowed !important;\n  color: #b4b4b4 !important;\n  background: #dfdfdf !important;\n}\n.Button_buttonContained__3P7t8:hover, .Button_buttonContained__3P7t8:active {\n  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.05), 0px 1px 1px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05) !important;\n}\n\n.Button_loadingContainer__1Kww_ {\n  width: 20px;\n  height: 20px;\n  margin-right: 6px;\n  margin-top: -7px;\n}\n.Button_loadingContainer__1Kww_.Button_small__nAPfO {\n  width: 15px;\n  height: 15px;\n  margin-top: -10px;\n}";
+var styles$3 = {"storybook-button":"Button_storybook-button__TVvey","buttonContained":"Button_buttonContained__3P7t8","loadingContainer":"Button_loadingContainer__1Kww_","small":"Button_small__nAPfO"};
+styleInject(css_248z$3);
+
+var css_248z$2 = ".Loading_loadingContainer__ygIo_ {\n  display: block;\n  width: 100%;\n  height: auto;\n  margin-left: auto;\n  margin-right: auto;\n}\n\n.Loading_loadingSvg__1NCNg {\n  margin: auto;\n  width: 100%;\n  height: 100%;\n  display: inline-block;\n  shape-rendering: auto;\n  vertical-align: middle;\n}\n\n.Loading_loadingScreenreader__3fQVp {\n  visibility: hidden;\n  width: 0;\n  height: 0;\n  position: absolute;\n  pointer-events: none;\n}";
+var styles$2 = {"loadingContainer":"Loading_loadingContainer__ygIo_","loadingSvg":"Loading_loadingSvg__1NCNg","loadingScreenreader":"Loading_loadingScreenreader__3fQVp"};
+styleInject(css_248z$2);
 
 var Loading = function (props) {
     return (jsxs("div", __assign({ className: styles$2.loadingContainer, role: "status" }, { children: [jsx("svg", __assign({ className: styles$2.loadingSvg, viewBox: "0 0 100 100", preserveAspectRatio: "xMidYMid" }, { children: jsx("circle", __assign({ cx: "50", cy: "50", fill: "none", stroke: props.colour ? props.colour : "#fff", strokeWidth: "10", r: "35", strokeDasharray: "164.93361431346415 56.97787143782138", transform: "rotate(102.756 50 50)" }, { children: jsx("animateTransform", { attributeName: "transform", type: "rotate", repeatCount: "indefinite", dur: "1s", values: "0 50 50;360 50 50", keyTimes: "0;1" }, void 0) }), void 0) }), void 0),
@@ -18004,7 +18035,9 @@ function v4(options, buf, offset) {
   return stringify(rnds);
 }
 
-var styles$1 = ".table {\n  width: 100%; }\n  .table th {\n    max-width: 100px;\n    font-weight: 700; }\n  .table td {\n    max-width: 200px;\n    overflow: hidden;\n    white-space: nowrap;\n    text-overflow: ellipsis; }\n\n.screenreaderVisible {\n  top: 20px;\n  clip: rect(0 0 0 0);\n  width: 1px;\n  border: 0;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  position: absolute; }\n  .screenreaderVisible + svg {\n    transition: 0.2s; }\n";
+var css_248z$1 = ".Table_table__1DoSj {\n  width: 100%;\n}\n.Table_table__1DoSj th {\n  max-width: 100px;\n  font-weight: 700;\n}\n.Table_table__1DoSj td {\n  max-width: 200px;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n\n.Table_screenreaderVisible__pnOHj {\n  top: 20px;\n  clip: rect(0 0 0 0);\n  width: 1px;\n  border: 0;\n  height: 1px;\n  margin: -1px;\n  padding: 0;\n  overflow: hidden;\n  position: absolute;\n}\n.Table_screenreaderVisible__pnOHj + svg {\n  transition: 0.2s;\n}";
+var styles$1 = {"table":"Table_table__1DoSj","screenreaderVisible":"Table_screenreaderVisible__pnOHj"};
+styleInject(css_248z$1);
 
 var Table = function (props) {
     var _a = useState(props.order || 'asc'), order = _a[0], setOrder = _a[1];
@@ -18124,7 +18157,9 @@ var Table = function (props) {
                         }) }, void 0)] }), void 0) }, void 0) }, void 0));
 };
 
-var styles = ".container {\n  position: relative; }\n\n.loadingContainer {\n  position: absolute;\n  top: .75rem;\n  right: .75rem;\n  width: 30px; }\n";
+var css_248z = ".Search_container__2Rd52 {\n  position: relative;\n}\n\n.Search_loadingContainer__-y0k0 {\n  position: absolute;\n  top: 0.75rem;\n  right: 0.75rem;\n  width: 30px;\n}";
+var styles = {"container":"Search_container__2Rd52","loadingContainer":"Search_loadingContainer__-y0k0"};
+styleInject(css_248z);
 
 var Search = function (props) {
     var id = props.id || "search";
