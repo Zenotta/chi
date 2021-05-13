@@ -1,6 +1,6 @@
 {
   "name": "chi",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Chi is Zenotta's front end component library for use in UI applications",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://gitlab.com/zenotta/chi/issues"
   },

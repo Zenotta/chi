@@ -16,7 +16,8 @@ const DEFAULT_COLOUR = "#fff";
 const DEFAULT_SUPPORT_COLOUR = "#000";
 
 export const Button = (props: ButtonProps & ChiButtonProps) => {
-  let loadingColour = props.disabled ? "#b4b4b4" : props.loadingColour ? props.loadingColour : DEFAULT_COLOUR;
+  // Clean this up!
+  let loadingColour = props.disabled ? "#b4b4b4" : props.loadingColour ? props.loadingColour : props.textColour ? props.textColour : DEFAULT_COLOUR;
 
   // Constructs class variants
   const constructClassVariants = (): any => {
