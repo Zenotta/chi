@@ -1,13 +1,15 @@
 {
   "name": "chi-ui",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Chi is Zenotta's front end component library for use in UI applications",
-  "main": "src/index.ts",
+  "main": "./build/index.js",
+  "module": "./build/index.es.js",
   "scripts": {
     "start": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,8 @@
   "homepage": "https://gitlab.com/zenotta/chi#readme",
   "devDependencies": {
     "@babel/core": "^7.14.0",
+    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.0",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
@@ -38,6 +42,8 @@
     "jest": "^26.6.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.30.0",
     "sass": "^1.32.12",
     "sass-loader": "^10",
     "style-loader": "^2.0.0",
@@ -50,6 +56,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
+    "rollup-plugin-scss": "^2.6.1",
     "uuid": "^8.3.2"
   }
 }
