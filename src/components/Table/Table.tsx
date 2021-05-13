@@ -120,14 +120,11 @@ export const Table = (props: TableProps) => {
     return (
         <Paper>
             <TableContainer>
-                <MUITable className={styles.table} aria-label="data table">
+                <MUITable className={styles.table} role="table" aria-label="data table">
                     <TableHead>
                         <TableRow>
                             {header.map((heading: TableCell) => {
                                 let alignment: 'right' | undefined = heading.isNumeric ? "right" : undefined;
-
-                                console.log("HEADING", heading);
-                                console.log("ORDER BY", orderBy);
 
                                 return (
                                     <TableCell

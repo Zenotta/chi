@@ -7,6 +7,28 @@ import { Button, ChiButtonProps } from './Button';
 export default {
   title: 'Example/Button',
   component: Button,
+  argTypes: {
+    backgroundColour: {
+      control: {
+        type: "color"
+      }
+    },
+    textColour: {
+      control: {
+        type: "color"
+      }
+    },
+    loadingColour: {
+      control: {
+        type: "color"
+      }
+    },
+    color: {
+      control: {
+        type: "text"
+      }
+    }
+  }
 } as Meta;
 
 const Template: Story<ButtonProps & ChiButtonProps> = (args) => {
