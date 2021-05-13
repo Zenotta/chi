@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Button as MUIButton, ButtonProps } from '@material-ui/core';
 import styles from './Button.scss';
 import { makeStyles } from '@material-ui/core/styles';

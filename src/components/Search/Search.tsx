@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { TextField } from '@material-ui/core';
 import { Loading } from '../Loading/Loading';
 import styles from './Search.scss';

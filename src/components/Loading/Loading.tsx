@@ -1,3 +1,4 @@
+import * as React from 'react';
 import styles from './Loading.scss';
 
 export interface ChiLoadingProps {
