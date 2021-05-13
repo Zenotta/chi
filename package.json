@@ -1,6 +1,6 @@
 {
   "name": "chi-ui",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Chi is Zenotta's front end component library for use in UI applications",
   "main": "./build/index.js",
   "module": "./build/index.es.js",
