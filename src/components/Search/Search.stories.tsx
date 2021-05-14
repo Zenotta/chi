@@ -22,7 +22,8 @@ const Template: Story<SearchProps> = (args) => {
     return <Search {...args} />;
 };
 
-export const Standard = Template.bind({});
-Standard.args = {
-    colour: "#000"
+export const Autocomplete = Template.bind({});
+Autocomplete.args = {
+    colour: "#000",
+    autocompleteValues: [ { value: 'First Item' }, { value: 'Second Item' } ]
 };
