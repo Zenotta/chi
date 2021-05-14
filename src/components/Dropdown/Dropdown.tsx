@@ -21,7 +21,7 @@ export interface DropdownProps {
     listItems: DropdownItem[],
     dropdownMethod?: 'hover' | 'click',
     placement?: Placement,
-    dropdownClassName?: string,
+    overridingClass?: string,
     visible?: boolean,
     onItemClick?: Function,
 }
@@ -62,7 +62,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = (props) => {
                 placement={placement}
                 trigger={[dropdownMethod]}
                 overlay={getListItemMenu()}
-                overlayClassName={`${styles.dropdownList} ${props.dropdownClassName}`}
+                overlayClassName={`${styles.dropdownList} ${props.overridingClass}`}
                 animation="slide-up"
                 {...(props.visible !== undefined && { visible: props.visible })}>
                 <div className={styles.hoverContainer}>
