@@ -2,12 +2,13 @@ import * as React from 'react';
 import styles from './Loading.scss';
 
 export interface ChiLoadingProps {
-    colour?: string
+    colour?: string,
+    overridingClass?: string
 }
 
 export const Loading = (props: ChiLoadingProps) => {
     return (
-        <div className={styles.loadingContainer} role="status">
+        <div className={`${styles.loadingContainer} ${props.overridingClass}`} role="status">
             <svg
                 className={styles.loadingSvg}
                 viewBox="0 0 100 100"

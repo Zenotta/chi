@@ -14,7 +14,8 @@ export interface SearchProps {
     colour?: string,
     shouldSubmitOnEnter?: boolean,
     variant?: 'outlined' | 'filled' | 'standard',
-    autocompleteValues?: DropdownItem[]
+    autocompleteValues?: DropdownItem[],
+    overridingClass?: string
 }
 
 export const Search = (props: SearchProps) => {
@@ -65,7 +66,7 @@ export const Search = (props: SearchProps) => {
     }
 
     return (
-        <div className={styles.container} role="search" data-testid="search">
+        <div className={`${styles.container} ${props.overridingClass}`} role="search" data-testid="search">
             {props.autocompleteValues &&
                 <div className={styles.dropdownContainer}>
                     <Dropdown listItems={autocompleteMatches} visible={matchesAreVisible}>
