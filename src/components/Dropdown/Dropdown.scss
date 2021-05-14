@@ -1,0 +1,33 @@
+.container {
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.dropdownList {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    z-index: 1070;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.5;
+
+    ul {
+        border: 0;
+    }
+
+    ul > :global.rc-dropdown-menu-item-disabled {
+        opacity: 0.4;
+    }
+
+    ul > :global.rc-dropdown-menu-item {
+        font-size: 1rem;
+        color: black;
+        cursor: pointer;
+
+        &:hover {
+            background: #ebebeb;
+        }
+    }
+}
