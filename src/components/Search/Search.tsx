@@ -113,7 +113,13 @@ export const Search = (props: SearchProps) => {
             {!props.autocompleteValues && getSearchInput()}
 
             {props.loading && <div className={styles.loadingContainer}><Loading colour={loadingColour} /></div>}
-            {!props.loading && <img src={searchIcon} className={styles.searchIcon} onClick={() => props.onSubmit()} />}
+            {!props.loading && 
+                <img 
+                    src={searchIcon} 
+                    className={styles.searchIcon} 
+                    alt="submit search" 
+                    onClick={() => props.onSubmit()} 
+                    />}
         </div>
     );
 }

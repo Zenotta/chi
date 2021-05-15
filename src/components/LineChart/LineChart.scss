@@ -1,0 +1,21 @@
+.line {
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.column {
+    opacity: .15;
+
+    path, text {
+        display: none;
+    }
+}
+
+.overlay {
+    fill: none;
+}
+
+.xAxis path,
+.yAxis path {
+    display: none;
+}

@@ -33,6 +33,7 @@
     "@storybook/react": "^6.2.9",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
+    "@types/d3": "^6.3.0",
     "@types/jest": "^26.0.23",
     "@types/material-ui": "^0.21.8",
     "@types/uuid": "^8.3.0",
@@ -56,6 +57,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
+    "d3": "^6.7.0",
     "postcss": "^8.2.15",
     "rc-dropdown": "^3.2.0",
     "rc-menu": "^9.0.0-alpha.7",
