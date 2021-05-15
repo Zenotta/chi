@@ -6,10 +6,20 @@ export default {
     title: 'Example/LineChart',
     component: LineChart,
     argTypes: {
+        data: {
+            description: 'Data to populate chart. Each data entry must have the structure `{ value: number, time: Date }`'
+        },
         lineColour: {
+            description: 'The colour of the chart\'s line',
             control: {
                 type: "color"
             }
+        },
+        grid: {
+            description: 'The orientation of the background grid'
+        },
+        overridingClass: {
+            description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
         }
     }
 } as Meta;
@@ -30,7 +40,9 @@ const gen = (n: number) => {
 
 const Template: Story<LineChartProps & { children: React.ReactElement[] }> = (args) => {
     return (
-        <LineChart {...args} />
+        <div style={{ width: '50%', height: '200px' }}>
+            <LineChart {...args} />
+        </div>
     );
 };
 

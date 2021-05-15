@@ -1,29 +1,29 @@
 import React from 'react';
-import { LineChartBuild, LineChartBuildConfig } from './LineChartBuild';
-import styles from './LineChart.scss';
+import { BarChartBuild, BarChartBuildConfig } from './BarChartBuild.ts';
+import styles from './BarChart.scss';
 
-export interface LineChartProps {
-    data: LineChartDatum[],
+export interface BarChartProps {
+    data: BarChartDatum[],
     grid?: 'vertical' | 'horizontal',
     overridingClass?: string,
-    lineColour?: string
+    BarColour?: string
 }
 
-interface LineChartState {
+interface BarChartState {
     grid: 'vertical' | 'horizontal',
 }
 
-interface LineChartDatum {
+interface BarChartDatum {
     time: any,
     value: number
 }
 
-export class LineChart extends React.Component<LineChartProps, LineChartState> {
+export class BarChart extends React.Component<BarChartProps, BarChartState> {
     chartGen: any;
     chartGenRef: any;
     containerRef: any;
 
-    constructor(props: LineChartProps) {
+    constructor(props: BarChartProps) {
         super(props);
 
         this.chartGenRef = React.createRef();
@@ -35,19 +35,19 @@ export class LineChart extends React.Component<LineChartProps, LineChartState> {
     componentDidMount() {
         console.log('width', this.containerRef.offsetWidth);
 
-        let config: LineChartBuildConfig = {
+        let config: BarChartBuildConfig = {
             width: this.containerRef.offsetWidth,
             height: this.containerRef.offsetHeight,
             target: this.chartGenRef.current,
             gridOrientation: this.state.grid
         };
 
-        if (this.props.lineColour) {
-            config.lineColour = this.props.lineColour;
+        if (this.props.BarColour) {
+            config.BarColour = this.props.BarColour;
         }
 
         // Construct and render chart
-        this.chartGen = new LineChartBuild(config, styles);
+        this.chartGen = new BarChartBuild(config, styles);
         this.chartGen.render(this.props.data);
     }
 
