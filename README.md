@@ -43,3 +43,20 @@ $ npm start
 ```
 
 This will run [Storybook](https://storybook.js.org/) at http://127.0.0.1:6006.
+
+..
+
+## 🤝 Contributing
+
+Chi is still at an early stage of development and we welcome all contributions. You can submit any ideas as pull requests or as GitLab issues. We particularly welcome any new components which you feel will improve the development of 
+blockchain-related UIs.
+
+We will soon be creating a set of guidelines for any and all contributions, so stay tuned!
+
+..
+
+## 🏛 License
+
+Chi is licensed under the [MIT License](https://gitlab.com/zenotta/chi/-/blob/master/LICENSE).
+
+Some third-party code may have its own licensing terms.
