@@ -7,21 +7,49 @@ export default {
   component: Notification,
   argTypes: {
     colour: {
+      description: 'A manual colour to override the default',
       control: {
         type: "color"
       }
+    },
+    type: {
+      description: 'Notification type'
+    },
+    variant: {
+      description: 'Visual variant type. Defaults to outlined'
+    },
+    closable: {
+      description: 'Whether the notification should be closable'
+    },
+    closeItem: {
+      description: 'The default close icon can be replaced by a custom React element here'
+    },
+    heading: {
+      description: 'Whether to set a heading for the notification type'
+    },
+    overridingClass: {
+      description: 'A CSS class that can be passed in to override the component, from root'
     }
   }
 } as Meta;
 
 const Template: Story<NotificationProps & { children: React.ReactElement[] }> = (args) => {
-  return <Notification {...args}>This is a very important piece of information.</Notification>;
+  return (
+    <div>
+      <div style={{ marginBottom: 20 }}>
+        <Notification variant='text' {...args}>This is a very important piece of information.</Notification>
+      </div>
+      <div style={{ marginBottom: 20 }}>
+        <Notification variant='outlined' {...args}>This is a very important piece of information.</Notification>
+      </div>
+      <Notification variant='contained' {...args}>This is a very important piece of information.</Notification>
+    </div>
+  );
 };
 
 export const Info = Template.bind({});
 Info.args = {
-  type: 'info',
-  variant: 'outlined'
+  type: 'info'
 };
 
 export const Error = Template.bind({});

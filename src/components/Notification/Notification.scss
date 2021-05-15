@@ -6,10 +6,11 @@
     transition: 0.2s;
 
     &.closed {
-        transform: scale(.5);
+        transform: translateX(-999);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
+        position: absolute;
     }
 
     &.outlined-info {

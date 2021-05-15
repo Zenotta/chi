@@ -25,7 +25,7 @@ export interface TableProps {
     orderBy?: string,
     order?: 'asc' | 'desc',
     rowCount?: number,
-    styles?: any
+    overridingClass?: string
 }
 
 interface HeaderId {
@@ -153,7 +153,7 @@ export const Table = (props: TableProps) => {
 
     return (
         <Paper>
-            <TableContainer>
+            <TableContainer className={props.overridingClass}>
                 <MUITable className={styles.table} role="table" aria-label="data table">
                     <TableHead>
                         <TableRow>

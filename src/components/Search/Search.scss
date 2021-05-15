@@ -6,9 +6,28 @@
     }
 }
 
-.loadingContainer {
+.loadingContainer,
+.searchIcon {
     position: absolute;
-    top: .75rem;
-    right: .75rem;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+}
+
+.loadingContainer {
+    right: 1rem;
     width: 30px;
+    height: 30px;
+}
+
+.searchIcon {
+    width: 20px;
+    right: 1rem;
+    opacity: .7;
+    transition: .2s;
+    cursor: pointer;
+
+    &:hover {
+        opacity: .9;
+    }
 }

@@ -11,6 +11,15 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+
+        a {
+            color: #1890ff;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }
 

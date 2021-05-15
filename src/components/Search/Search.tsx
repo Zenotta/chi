@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { Loading } from '../Loading/Loading';
 import { Dropdown, DropdownItem } from '../Dropdown/Dropdown';
 import styles from './Search.scss';
+
+const searchIcon = require('../../images/search.svg');
 
 export interface SearchProps {
     onSubmit: Function,
@@ -26,6 +29,30 @@ export const Search = (props: SearchProps) => {
     const [matchesAreVisible, setMatchesAreVisible] = useState(false);
     const [autocompleteMatches, setAutoCompleteMatches] = useState<DropdownItem[]>([]);
 
+    const constructClassVariants = (): any => {
+        if (props.colour) {
+            console.log("props colour", props.colour);
+
+            return {
+                outlined: {
+                    root: {
+                        '& .Mui-focused': {
+                            color: props.colour,
+                        },
+                        '& .MuiOutlinedInput-notchedOutline': {
+                            borderColor: `${props.colour} !important`
+                        },
+                        '& .MuiInput-underline:after': {
+                            borderBottom: `2px solid ${props.colour}`
+                        }
+                    }
+                }
+            };
+        }
+
+        return null;
+    }
+
     const onSearchChange = (e: any) => {
         // Handle submitting search via Enter key
         if (e.keyCode === 13 && props.shouldSubmitOnEnter) {
@@ -44,10 +71,10 @@ export const Search = (props: SearchProps) => {
             if (value.length) {
                 let matches = props.autocompleteValues
                     .filter(e => e.value.toLowerCase().indexOf(value.toLowerCase()) != -1);
-                
+
                 setAutoCompleteMatches(matches);
                 setMatchesAreVisible(autocompleteMatches.length > 0);
-                
+
             } else {
                 setMatchesAreVisible(false);
             }
@@ -55,13 +82,22 @@ export const Search = (props: SearchProps) => {
     }
 
     const getSearchInput = () => {
+        let mainClass;
+        let classes = constructClassVariants();
+
+        if (classes) {
+            mainClass = makeStyles(classes.outlined);
+        }
+
         return (
             <TextField
                 variant={variant}
                 fullWidth={true}
                 id={id}
+                label={label}
                 onChange={e => onSearchChange(e)}
-                label={label} />
+                {...(mainClass !== undefined && { classes: { root: mainClass().root } })}
+            />
         );
     }
 
@@ -73,10 +109,11 @@ export const Search = (props: SearchProps) => {
                         {getSearchInput()}
                     </Dropdown>
                 </div>}
-            
+
             {!props.autocompleteValues && getSearchInput()}
 
             {props.loading && <div className={styles.loadingContainer}><Loading colour={loadingColour} /></div>}
+            {!props.loading && <img src={searchIcon} className={styles.searchIcon} onClick={() => props.onSubmit()} />}
         </div>
-    )
+    );
 }
