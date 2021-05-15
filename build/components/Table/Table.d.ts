@@ -11,6 +11,6 @@ export interface TableProps {
     orderBy?: string;
     order?: 'asc' | 'desc';
     rowCount?: number;
-    styles?: any;
+    overridingClass?: string;
 }
 export declare const Table: (props: TableProps) => JSX.Element;
