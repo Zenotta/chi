@@ -14,7 +14,7 @@ export default {
             'Body rows. Require the same data structure as header columns'
         },
         sortable: {
-            description: 'Whether the table should be sortable by column or not'
+            description: 'Whether the table should be sortable by column or not. Columns with non-text values will not sort'
         },
         overridingClass: {
             description: 'A CSS class that can be passed in to override the component\'s native styling, from root'

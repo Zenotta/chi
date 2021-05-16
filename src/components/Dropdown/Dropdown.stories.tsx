@@ -32,6 +32,6 @@ WithButton.args = {
         }
     ],
     children: [
-        <Button backgroundColour="#000" variant="outlined">Hover me</Button>
+        <Button mainColour="#000" variant="outlined">Hover me</Button>
     ]
 };

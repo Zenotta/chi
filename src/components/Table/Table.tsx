@@ -1,16 +1,9 @@
 import * as React from 'react';
-import MUITable from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Paper from '@material-ui/core/Paper';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 
 import styles from './Table.scss';
+const arrowIcon = require('../../images/arrow.svg');
 
 export interface TableCell {
     id?: string,
@@ -152,23 +145,21 @@ export const Table = (props: TableProps) => {
     const [orderBy, setOrderBy] = useState(props.orderBy ? mapValueToId(props.orderBy) : mapValueToId(props.header[0].value));
 
     return (
-        <Paper>
-            <TableContainer className={props.overridingClass}>
-                <MUITable className={styles.table} role="table" aria-label="data table">
-                    <TableHead>
-                        <TableRow>
+        <section className={styles.superContainer}>
+            <div className={`${styles.container} ${props.overridingClass}`}>
+                <table className={styles.table} role="table" aria-label="data table">
+                    <thead>
+                        <tr>
                             {header.map((heading: TableCell) => {
                                 let alignment: 'right' | undefined = heading.isNumeric ? "right" : undefined;
 
                                 return (
-                                    <TableCell
+                                    <th
                                         key={heading.id}
-                                        sortDirection={orderBy == heading.id ? order : false}
                                         align={alignment}>
                                         {props.sortable &&
-                                            <TableSortLabel
-                                                active={orderBy == heading.id}
-                                                direction={orderBy === heading.id ? order : 'desc'}
+                                            <div 
+                                                className={`${styles.sorter} ${orderBy == heading.id ? styles.active : ''}`}
                                                 onClick={() => handleRequestSort(heading.id)}>
                                                 {heading.value}
                                                 {orderBy == heading.id ? (
@@ -176,29 +167,34 @@ export const Table = (props: TableProps) => {
                                                         {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                                                     </span>
                                                 ) : null}
-                                            </TableSortLabel>}
+                                                <img 
+                                                    src={arrowIcon} 
+                                                    alt="sort arrow" 
+                                                    className={`${styles.arrow} ${styles[`direc-${order ? order : 'desc'}`]}`} 
+                                                />
+                                            </div>}
                                         {!props.sortable && heading.value}
-                                    </TableCell>
+                                    </th>
                                 );
                             })}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {body && stableSort(body, getComparator())
                             // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row: any, i) => {
                                 return (
-                                    <TableRow key={i}>
+                                    <tr key={i}>
                                         {Object.keys(row).map((headerId) => {
                                             let alignment: 'right' | undefined = row[headerId].isNumeric ? "right" : undefined;
-                                            return <TableCell key={row[headerId].id} align={alignment}>{row[headerId].value}</TableCell>;
+                                            return <td key={row[headerId].id} align={alignment}>{row[headerId].value}</td>;
                                         })}
-                                    </TableRow>
+                                    </tr>
                                 );
                             })}
-                    </TableBody>
-                </MUITable>
-            </TableContainer>
-        </Paper>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     );
 }

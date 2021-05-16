@@ -1,7 +1,7 @@
 import RcDropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem } from 'rc-menu';
 import 'rc-dropdown/assets/index.css';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import styles from './Dropdown.scss';
 
 type Placement = 'bottomLeft'
@@ -33,6 +33,7 @@ interface ItemSelection {
 export const Dropdown: FunctionComponent<DropdownProps> = (props) => {
     const placement = props.placement || 'bottomCenter';
     const dropdownMethod = props.dropdownMethod || 'click';
+    const [selected, setSelected] = useState(0);
 
     const onSelect = (select: ItemSelection) => {
         console.log("Key selected", select.key);

@@ -90,10 +90,6 @@ export declare class LineChartBuild {
      */
     renderLine(data: LineChartData[]): void;
     /**
-     * Renders the tooltip
-     */
-    renderTooltip(data: LineChartData[]): void;
-    /**
      * Render the chart against the given data.
      *
      * @param data {LineChartData[]} - Data to render with

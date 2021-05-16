@@ -117,9 +117,7 @@ export const Search = (props: SearchProps) => {
                 <img 
                     src={searchIcon} 
                     className={styles.searchIcon} 
-                    alt="submit search" 
-                    onClick={() => props.onSubmit()} 
-                    />}
+                    alt="submit search" onClick={() => props.onSubmit()} />}
         </div>
     );
 }

@@ -20,7 +20,7 @@ export interface BarChartBuildConfig {
     height?: number,
 
     // enable axis
-    axis: boolean,
+    axis?: boolean,
 
     // margin
     margin?: {

@@ -1,34 +1,43 @@
-.storybook-button {
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  border: 0;
-  border-radius: 3em;
+.container {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
   cursor: pointer;
-  display: inline-block;
-  line-height: 1;
-}
-
-.buttonContained {
-  box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.05), 0px 1px 2px 0px rgba(0,0,0,0.05), 0px 1px 2px 0px rgba(0,0,0,0.05) !important;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.1s;
+  box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
 
   &[disabled],
   &:disabled {
-    cursor: not-allowed !important;
-    color: rgb(180, 180, 180) !important;
-    background: rgb(223, 223, 223) !important;
+    cursor: not-allowed;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    opacity: 0.7;
+
+    &:hover {
+      box-shadow: none;
+    }
   }
 
-  &:hover,
-  &:active {
-    box-shadow: 0px 1px 1px 1px rgba(0,0,0,0.05), 0px 1px 1px 0px rgba(0,0,0,0.05), 0px 1px 2px 0px rgba(0,0,0,0.05) !important;
+  &.contained {
+
+    &:hover,
+    &:active {
+      box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.05), 0px 1px 1px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+    }
   }
 }
 
 .loadingContainer {
-  width: 20px;
-  height: 20px;
-  margin-right: 6px;
-  margin-top: -7px;
+  height: 1rem;
+  width: 1rem;
+  margin-right: 8px;
+  vertical-align: middle;
+  display: inline-block;
 
   &.small {
     width: 15px;

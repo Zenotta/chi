@@ -23,10 +23,7 @@ const DEFAULT_WARNING_COLOUR = '#faad14';
 const DEFAULT_ERROR_COLOUR = '#ff4d4f';
 
 export const Notification: FunctionComponent<NotificationProps> = (props) => {
-    console.log('variant', props.variant);
     const variantClass = props.variant ? styles[`${props.variant}-${props.type}`] : '';
-
-    console.log('variant class', variantClass);
     const [openClass, setOpenClass] = useState('');
 
     const closeSelf = () => {

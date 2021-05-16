@@ -1,5 +1,5 @@
 interface BarChartData {
-    time: any;
+    bin: any;
     value: number;
 }
 interface BarChartRenderOptions {
@@ -9,6 +9,7 @@ export interface BarChartBuildConfig {
     target?: any;
     width?: number;
     height?: number;
+    axis?: boolean;
     margin?: {
         top: number;
         right: number;
@@ -17,11 +18,15 @@ export interface BarChartBuildConfig {
     };
     axisPadding?: number;
     tickSize?: number;
-    xTicks?: number;
-    yTicks?: number;
+    barPadding?: number;
     nice?: boolean;
-    BarColour?: string;
-    gridOrientation?: 'vertical' | 'horizontal';
+    barColour?: string;
+    mouseover?: Function;
+    mouseout?: Function;
+    xDomain?: any;
+    yDomain?: any;
+    showBackgroundColumns?: boolean;
+    barType?: 'round' | 'square';
 }
 /**
  * Bar Chart building class
@@ -31,6 +36,7 @@ export declare class BarChartBuild {
         target: string;
         width: number;
         height: number;
+        axis: boolean;
         margin: {
             top: number;
             right: number;
@@ -39,12 +45,20 @@ export declare class BarChartBuild {
         };
         axisPadding: number;
         tickSize: number;
-        xTicks: number;
-        yTicks: number;
         nice: boolean;
-        BarColour: string;
-        gridOrientation: string;
+        barColour: string;
+        xDomain: null;
+        yDomain: null;
+        barPadding: number;
+        barType: string;
+        mouseover: (_: any) => void;
+        mouseout: () => void;
+        showBackgroundColumns: boolean;
     };
+    data: any;
+    xBisect: any;
+    ease: any;
+    transition: any;
     chart: any;
     xAxis: any;
     yAxis: any;
@@ -67,44 +81,44 @@ export declare class BarChartBuild {
      */
     dimensions(): [number, number];
     /**
-     * Initialises the chart
+     * Handle mouseover.
+     */
+    onMouseOver(): void;
+    /**
+     * Handle mouseleave.
+     */
+    onMouseLeave(): void;
+    /**
+     * Initialize the chart.
      */
     init(): void;
     /**
-     * Renders the axes
+     * Render axes
      *
-     * @param data {BarChartData[]} - Data to render with
-     * @param options {BarChartRenderOptions} - Options to render with
+     * @param data {BarChartData[]} - Data for the bar chart
      */
-    renderAxes(data: BarChartData[], options: BarChartRenderOptions): void;
+    renderAxes(data: BarChartData[]): void;
     /**
-     * Renders column Bars
+     * Render bars.
      *
-     * @param data {BarChartData[]} - Data to render with
+     * @param data {BarChartData[]} - Data for the bar chart
+     * @param options {BarChartRenderOptions} - Options to render the chart
      */
-    renderGrid(data: BarChartData[]): void;
+    renderBars(data: BarChartData[], options: BarChartRenderOptions): void;
     /**
-     * Renders the chart Bar
+     * Render the chart against the given `data` which should be
+     * an array of objects with `bin` and `value` properties.
      *
-     * @param data {BarChartData[]} - Data to render with
+     * @param data {BarChartData[]} - Data for the bar chart
+     * @param options {BarChartRenderOptions} - Options to render the chart
      */
-    renderBar(data: BarChartData[]): void;
+    render(data: BarChartData[], options: BarChartRenderOptions): void;
     /**
-     * Renders the tooltip
-     */
-    renderTooltip(data: BarChartData[]): void;
-    /**
-     * Render the chart against the given data.
+     * Update the chart against the given `data`.
      *
-     * @param data {BarChartData[]} - Data to render with
-     * @param options {BarChartRenderOptions} - Options to render with
+     * @param data {BarChartData[]} - Data for the bar chart
+     * @param options {BarChartRenderOptions} - Options to render the chart
      */
-    render(data: BarChartData[], options?: BarChartRenderOptions): void;
-    /**
-     * Update the chart against the given data.
-     *
-     * @param data {BarChartData[]} - Data to render with
-     */
-    update(data: BarChartData[]): void;
+    update(data: BarChartData[], options: BarChartRenderOptions): void;
 }
 export {};

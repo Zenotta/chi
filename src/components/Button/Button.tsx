@@ -1,92 +1,137 @@
-import * as React from 'react';
-import { Button as MUIButton, ButtonProps } from '@material-ui/core';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import styles from './Button.scss';
-import { makeStyles } from '@material-ui/core/styles';
 import { Loading } from "../Loading/Loading";
-import { lightenDarkenColour, transparentizeColour } from "../../utils";
+import { lightenDarkenColour, transparentizeColour, STORYBOOK_VALS } from "../../utils";
 
-export interface ChiButtonProps {
+export interface ButtonProps {
   loading?: boolean,
   loadingColour?: string,
-  backgroundColour?: string,
-  textColour?: string
+  mainColour?: string,
+  textColour?: string,
+  disabled?: boolean,
+  endIcon?: React.ReactElement,
+  startIcon?: React.ReactElement,
+  overridingClass?: string,
+  onClick?: Function,
+  variant?: 'contained' | 'outlined'
 }
 
+const DEFAULT_TEXT_COLOUR = "#ffffff";
+const DEFAULT_BG_COLOUR = "#000000";
 
-const DEFAULT_COLOUR = "#fff";
-const DEFAULT_SUPPORT_COLOUR = "#000";
+export const Button: FunctionComponent<ButtonProps> = (props) => {
+  const variant = props.variant || 'outlined';
+  const [clicked, setClicked] = useState(false);
+  const borderColour = props.mainColour || DEFAULT_BG_COLOUR;
+  const bgColour = variant == 'contained' ? (props.mainColour || DEFAULT_BG_COLOUR) : '#ffffff';
+  const textColour = props.textColour || (variant == 'contained' ? DEFAULT_TEXT_COLOUR : props.mainColour);
 
-export const Button = (props: ButtonProps & ChiButtonProps) => {
-  // Clean this up!
-  let loadingColour = props.disabled ? "#b4b4b4" : props.loadingColour ? props.loadingColour : props.textColour ? props.textColour : DEFAULT_COLOUR;
-
-  // Constructs class variants
-  const constructClassVariants = (): any => {
-    let backgroundColour = props.backgroundColour || DEFAULT_COLOUR;
-    let textColour = props.textColour || DEFAULT_SUPPORT_COLOUR;
-
+  /**
+   * Gets the inline styling for a disabled state
+   */
+  const getDisabledInlineStyles = () => {
     return {
-      default: {
-        root: {
-          color: backgroundColour,
-          '&:hover': {
-            background: transparentizeColour(backgroundColour, 0.15)
-          },
-          '&:active': {
-            background: transparentizeColour(backgroundColour, 0.5)
-          }
-        }
-      },
-      outlined: {
-        root: {
-          border: `1px solid ${backgroundColour}`,
-          color: backgroundColour,
-          '&:hover': {
-            border: `1px solid ${backgroundColour}`,
-            background: transparentizeColour(backgroundColour, 0.15)
-          },
-          '&:active': {
-            background: transparentizeColour(backgroundColour, 0.3)
-          }
-        },
-      },
-      contained: {
-        root: {
-          color: textColour,
-          background: backgroundColour,
-          '&:hover': {
-            background: lightenDarkenColour(backgroundColour, 10)
-          },
-          '&:active': {
-            background: lightenDarkenColour(backgroundColour, 40)
-          }
-        }
-      }
-    };
+      backgroundColor: variant == 'contained' ? 'rgb(244, 245, 248)' : '#fff',
+      border: `1px solid rgb(213, 216, 221)`,
+      color: STORYBOOK_VALS.disabled
+    }
   }
 
-  let classes = constructClassVariants();
-  let mainClass = makeStyles(classes.default);
+  /**
+   * Gets the loading icon colour based on sensible defaults
+   */
+  const getLoadingColour = (): string => {
+    if (props.disabled) { return STORYBOOK_VALS.disabled }
+    if (props.loadingColour) { return props.loadingColour }
 
-  // Class names based on variant
-  if (props.variant == "contained") {
-    mainClass = makeStyles(classes.contained);
-  } else if (props.variant == "outlined") {
-    mainClass = makeStyles(classes.outlined);
+    if (props.textColour && variant == 'contained') { return props.textColour }
+    if (props.mainColour && variant == 'outlined') { return props.mainColour }
+
+    return variant == 'contained' ? DEFAULT_TEXT_COLOUR : DEFAULT_BG_COLOUR;
   }
+
+  /**
+   * Handles a click event
+   */
+  const handleClick = () => {
+    const newBg = variant == 'contained' ? lightenDarkenColour(bgColour, -25) : transparentizeColour(borderColour, .3);
+
+    setInlineStyles(props.disabled ? getDisabledInlineStyles : {
+      backgroundColor: newBg,
+      border: inlineStyles.border,
+      color: inlineStyles.color
+    });
+
+    if (props.onClick) {
+      props.onClick();
+    }
+
+    setClicked(true);
+  }
+
+  /**
+   * Handles mouse enter event on button
+   * 
+   * @param e {any}
+   */
+  const handleMouseEnter = (e: any) => {
+    const newBg = variant == 'contained' ? lightenDarkenColour(bgColour, -15) : transparentizeColour(borderColour, .1);
+
+    setInlineStyles(props.disabled ? getDisabledInlineStyles : {
+      backgroundColor: newBg,
+      border: inlineStyles.border,
+      color: inlineStyles.color
+    });
+  }
+
+  /**
+   * Handles mouse leave event on button
+   * 
+   * @param e {any}
+   */
+  const handleMouseLeave = (e: any) => {
+    setInlineStyles(props.disabled ? getDisabledInlineStyles : {
+      backgroundColor: bgColour,
+      border: inlineStyles.border,
+      color: inlineStyles.color
+    });
+  }
+
+  /** State watch */
+  useEffect(() => {
+    if (clicked) {
+      setTimeout(() => {
+        handleMouseEnter(null);
+        setClicked(false);
+      }, 100);
+    }
+    
+  }, [clicked]);
+
+  // Set colouring variablts
+  const loadingColour = getLoadingColour();
+  const [inlineStyles, setInlineStyles] = useState<any>(props.disabled ? getDisabledInlineStyles() : {
+    backgroundColor: bgColour,
+    border: `1px solid ${borderColour}`,
+    color: textColour
+  });
 
   return (
-    <MUIButton classes={{
-      root: mainClass().root,
-      contained: styles.buttonContained
-    }}
-      {...props}>
+    <button
+      disabled={props.disabled}
+      style={inlineStyles}
+      className={`${styles.container} ${styles[variant]} ${props.overridingClass}`}
+      onMouseEnter={e => handleMouseEnter(e)}
+      onMouseLeave={e => handleMouseLeave(e)}
+      onClick={() => handleClick()}>
       {props.loading &&
         <span className={styles.loadingContainer}>
           <Loading colour={loadingColour} />
         </span>
       }
+      {!props.loading && props.startIcon}
       {props.children}
-    </MUIButton>
+      {props.endIcon}
+    </button>
   );
 };

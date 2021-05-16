@@ -3,6 +3,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
 import postcss from "rollup-plugin-postcss";
+import cleaner from 'rollup-plugin-cleaner';
 import { uglify } from "rollup-plugin-uglify";
 
 import packageJson from "./package.json";
@@ -21,9 +22,19 @@ export default {
       sourcemap: true
     }
   ],
-  plugins: [peerDepsExternal(), resolve(), commonjs(), typescript(), postcss({
-    extract: false,
-    modules: true,
-    use: ['sass'],
-  }), uglify()]
+  plugins: [
+    cleaner({
+      targets: ['./build'],
+    }),
+    peerDepsExternal(),
+    resolve(),
+    commonjs(),
+    typescript({
+      exclude: ['**/*.stories.tsx', '**/*.test.tsx'],
+    }),
+    postcss({
+      extract: false,
+      modules: true,
+      use: ['sass'],
+    }), uglify()]
 };

@@ -1,69 +1,61 @@
-import { ButtonProps } from "@material-ui/core";
 import { Story, Meta } from '@storybook/react';
 import { STORYBOOK_VALS } from '../../utils';
 
-import { Button, ChiButtonProps } from './Button';
+import { Button, ButtonProps } from './Button';
 
 export default {
   title: 'Example/Button',
   component: Button,
   argTypes: {
-    backgroundColour: {
+    variant: {
+      description: 'Either an outlined or a contained style'
+    },
+    mainColour: {
+      description: 'Primary colour for handling the styling',
       control: {
         type: "color"
       }
     },
     textColour: {
+      description: 'Text colour',
       control: {
         type: "color"
       }
+    },
+    disabled: {
+      description: 'Whether the button is disabled or not'
+    },
+    onClick: {
+      description: 'Function to trigger on button click'
+    },
+    loading: {
+      description: 'Whether the button is loading or not'
     },
     loadingColour: {
+      description: 'Colour of the loading icon',
       control: {
         type: "color"
       }
     },
-    color: {
-      control: {
-        type: "text"
-      }
-    }
   }
 } as Meta;
 
-const Template: Story<ButtonProps & ChiButtonProps> = (args) => {
+const Template: Story<ButtonProps & { children: any }> = (args) => {
   return (
-    <Button {...args} />
+    <div style={{ width: 150 }}>
+      <div style={{ marginBottom: 15 }}>
+        <Button {...args} />
+      </div>
+      <div style={{ marginBottom: 15 }}>
+        <Button variant='outlined'>Click Me</Button>
+      </div>
+      <Button variant='contained'>Click Me</Button>
+    </div>
   );
 };
 
-export const Primary = Template.bind({});
-Primary.args = {
-  color: "primary",
-  backgroundColour: STORYBOOK_VALS.primary,
-  textColour: "#fff",
-  children: "Click Me"
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
+export const Standard = Template.bind({});
+Standard.args = {
+  mainColour: STORYBOOK_VALS.primary,
   children: "Click Me",
-  backgroundColour: STORYBOOK_VALS.primary,
-  textColour: "#fff",
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: 'large',
-  children: "Click Me",
-  backgroundColour: STORYBOOK_VALS.primary,
-  textColour: "#fff",
-};
-
-export const Small = Template.bind({});
-Small.args = {
-  size: 'small',
-  children: "Click Me",
-  backgroundColour: STORYBOOK_VALS.primary,
-  textColour: "#fff",
 };

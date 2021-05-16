@@ -1,6 +1,6 @@
 export const STORYBOOK_VALS = {
     primary: "#2a8def",
-    disabled: "#b4b4b4",
+    disabled: "#bdc7cf",
     cta: "#EA3546"
 }
 
@@ -35,10 +35,14 @@ export const lightenDarkenColour = (colour: string, amount: number): string => {
 
 export const transparentizeColour = (colour: string, amount: number): string => {
     let rgb = hexToRgb(colour);
+
+    console.log('rgb', rgb);
     return "rgba(" + [rgb?.r, rgb?.g, rgb?.b, amount].join(",") + ")";
 }
 
 function hexToRgb(hex: string) {
+    console.log('hex', hex);
+
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
         r: parseInt(result[1], 16),

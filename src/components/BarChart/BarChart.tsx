@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChartBuild, BarChartBuildConfig } from './BarChartBuild.ts';
+import { BarChartBuild, BarChartBuildConfig } from './BarChartBuild';
 import styles from './BarChart.scss';
 
 export interface BarChartProps {
