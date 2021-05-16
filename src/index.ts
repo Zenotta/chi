@@ -4,3 +4,5 @@ export { Table } from './components/Table/Table';
 export { Search } from './components/Search/Search';
 export { Dropdown } from './components/Dropdown/Dropdown';
 export { Notification } from './components/Notification/Notification';
+export { LineChart } from './components/LineChart/LineChart';
+export { BarChart } from './components/BarChart/BarChart';

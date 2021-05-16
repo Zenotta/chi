@@ -237,32 +237,6 @@ export class LineChartBuild {
     }
 
     /**
-     * Renders the tooltip
-     */
-    renderTooltip(data: LineChartData[]) {
-        let { classes } = this;
-        let [w, h] = this.dimensions();
-
-        this.tooltip = d3.select('body').append('div')
-            .attr('class', classes.tooltip)
-            .style('display', 'none');
-
-        this.focus = this.chart.append('g')
-            .attr('class', classes.focus)
-            .style('display', 'none');
-
-        this.focus.append('circle').attr('r', 5);
-
-        this.chart.append("rect")
-            .attr("class", classes.overlay)
-            .attr("width", w)
-            .attr("height", h)
-            .on("mouseover", () => { this.focus.style("display", null); this.tooltip.style("display", null);  })
-            .on("mouseout", () => { this.focus.style("display", "none"); this.tooltip.style("display", "none"); })
-            .on("mousemove", () => {}); //this.onMouseMove(data));
-    }
-
-    /**
      * Render the chart against the given data.
      * 
      * @param data {LineChartData[]} - Data to render with
@@ -274,7 +248,6 @@ export class LineChartBuild {
         this.renderAxes(data, finalOpts);
         this.renderGrid(data);
         this.renderLine(data);
-        this.renderTooltip(data);
     }
 
     /**

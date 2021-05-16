@@ -4,13 +4,10 @@ import styles from './BarChart.scss';
 
 export interface BarChartProps {
     data: BarChartDatum[],
-    grid?: 'vertical' | 'horizontal',
+    barType?: 'round' | 'square',
+    barPadding?: number,
     overridingClass?: string,
-    BarColour?: string
-}
-
-interface BarChartState {
-    grid: 'vertical' | 'horizontal',
+    showBackgroundColumns?: boolean
 }
 
 interface BarChartDatum {
@@ -18,7 +15,7 @@ interface BarChartDatum {
     value: number
 }
 
-export class BarChart extends React.Component<BarChartProps, BarChartState> {
+export class BarChart extends React.Component<BarChartProps, {}> {
     chartGen: any;
     chartGenRef: any;
     containerRef: any;
@@ -27,24 +24,31 @@ export class BarChart extends React.Component<BarChartProps, BarChartState> {
         super(props);
 
         this.chartGenRef = React.createRef();
-        this.state = {
-            grid: props.grid ? props.grid : 'vertical'
-        };
     }
 
     componentDidMount() {
-        console.log('width', this.containerRef.offsetWidth);
-
         let config: BarChartBuildConfig = {
             width: this.containerRef.offsetWidth,
             height: this.containerRef.offsetHeight,
             target: this.chartGenRef.current,
-            gridOrientation: this.state.grid
+            tickSize: 3
         };
 
-        if (this.props.BarColour) {
-            config.BarColour = this.props.BarColour;
+        console.log(this.props);
+
+        if (this.props.barPadding) {
+            config.barPadding = this.props.barPadding;
         }
+
+        if (this.props.barType) {
+            config.barType = this.props.barType;
+        }
+
+        if (this.props.showBackgroundColumns !== undefined) {
+            config.showBackgroundColumns = this.props.showBackgroundColumns;
+        }
+
+        console.log('final config', config);
 
         // Construct and render chart
         this.chartGen = new BarChartBuild(config, styles);

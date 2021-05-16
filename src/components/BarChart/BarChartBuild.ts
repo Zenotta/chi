@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 
 interface BarChartData {
-    time: any,
+    bin: any,
     value: number
 }
 
@@ -19,6 +19,9 @@ export interface BarChartBuildConfig {
     // height of chart
     height?: number,
 
+    // enable axis
+    axis: boolean,
+
     // margin
     margin?: {
         top: number,
@@ -33,34 +36,51 @@ export interface BarChartBuildConfig {
     // axis tick size
     tickSize?: number,
 
-    // number of x-axis ticks
-    xTicks?: number,
-
-    // number of y-axis ticks
-    yTicks?: number,
+    // padding between bars
+    barPadding?: number,
 
     // nice round values for axis
     nice?: boolean,
 
     // Bar colour
-    BarColour?: string,
+    barColour?: string,
 
-    // whether the grid should be horizontal or vertical
-    gridOrientation?: 'vertical' | 'horizontal'
+    // mouseover callback for tooltips or value display
+    mouseover?: Function,
+
+    // mouseout callback for tooltips or value display
+    mouseout?: Function,
+
+    // custom x domain
+    xDomain?: any,
+
+    // custom y domain
+    yDomain?: any,
+
+    // show background columns
+    showBackgroundColumns?: boolean,
+
+    // bar type
+    barType?: 'round' | 'square'
 }
 
 const DEFAULT_CONFIG = {
     target: '#chart',
     width: 570,
     height: 270,
-    margin: { top: 15, right: 20, bottom: 35, left: 30 },
+    axis: true,
+    margin: { top: 15, right: 30, bottom: 35, left: 30 },
     axisPadding: 5,
-    tickSize: 0,
-    xTicks: 5,
-    yTicks: 3,
+    tickSize: 10,
     nice: false,
-    BarColour: '#000',
-    gridOrientation: 'vertical'
+    barColour: '#000',
+    xDomain: null,
+    yDomain: null,
+    barPadding: 25,
+    barType: 'round',
+    mouseover: (_: any) => { },
+    mouseout: () => { },
+    showBackgroundColumns: true
 }
 
 /**
@@ -68,6 +88,10 @@ const DEFAULT_CONFIG = {
  */
 export class BarChartBuild {
     props = DEFAULT_CONFIG;
+    data: any;
+    xBisect: any;
+    ease: any;
+    transition: any;
 
     // Chart props
     chart: any;
@@ -84,6 +108,11 @@ export class BarChartBuild {
     constructor(config: BarChartBuildConfig, classes: { [k: string]: any }) {
         this.classes = classes;
         this.setProps(config);
+
+        if (!this.props.axis) {
+            this.props.margin = { top: 0, right: 0, bottom: 0, left: 0 };
+        }
+
         this.init();
     }
 
@@ -106,19 +135,38 @@ export class BarChartBuild {
     }
 
     /**
-     * Initialises the chart
+     * Handle mouseover.
+     */
+    onMouseOver() {
+        const m = d3.pointer(this.chart.node());
+        const x = this.xScale.invert(m[0]);
+        const i = this.xBisect(this.data, x, 1);
+        const data = this.data[i - 1];
+        this.props.mouseover(data);
+    }
+
+    /**
+     * Handle mouseleave.
+     */
+    onMouseLeave() {
+        this.props.mouseout();
+    }
+
+    /**
+     * Initialize the chart.
      */
     init() {
         const { classes } = this;
-        const { target, width, height, margin, axisPadding } = this.props;
-        const { tickSize, xTicks, yTicks } = this.props;
+        const { target, width, height, margin, axisPadding, tickSize, axis } = this.props;
         const [w, h] = this.dimensions();
 
         this.chart = d3.select(target)
             .attr('width', width)
             .attr('height', height)
             .append('g')
-            .attr('transform', `translate(${margin.left}, ${margin.top})`);
+            .attr('transform', `translate(${margin.left}, ${margin.top})`)
+            .on('mouseover', _ => this.onMouseOver())
+            .on('mouseleave', _ => this.onMouseLeave())
 
         this.xScale = d3.scaleTime()
             .range([0, w]);
@@ -127,164 +175,153 @@ export class BarChartBuild {
             .range([h, 0]);
 
         this.xAxis = d3.axisBottom(this.xScale)
-            .ticks(xTicks)
+            .ticks(5)
             .tickPadding(8)
             .tickSize(tickSize);
 
         this.yAxis = d3.axisLeft(this.yScale)
-            .ticks(yTicks)
+            .ticks(3)
             .tickPadding(8)
             .tickSize(tickSize);
 
-        this.chart.append('g')
-            .attr('class', classes.xAxis)
-            .attr('transform', `translate(0, ${h + axisPadding})`)
-            .call(this.xAxis);
+        if (axis) {
+            this.chart.append('g')
+                .attr('class', classes.xAxis)
+                .attr('transform', `translate(0, ${h + axisPadding})`)
+                .call(this.xAxis);
 
-        this.chart.append('g')
-            .attr('class', classes.yAxis)
-            .attr('transform', `translate(${-axisPadding}, 0)`)
-            .call(this.yAxis);
+            this.chart.append('g')
+                .attr('class', classes.yAxis)
+                .attr('transform', `translate(${-axisPadding}, 0)`)
+                .call(this.yAxis);
+        }
+
+        this.xBisect = d3.bisector((d: any) => d.bin).left;
+        this.ease = d3['easeLinear'];
     }
 
     /**
-     * Renders the axes
+     * Render axes
      * 
-     * @param data {BarChartData[]} - Data to render with
-     * @param options {BarChartRenderOptions} - Options to render with
+     * @param data {BarChartData[]} - Data for the bar chart
      */
-    renderAxes(data: BarChartData[], options: BarChartRenderOptions) {
-        const { nice } = this.props;
-        const { classes } = this;
+    renderAxes(data: BarChartData[]) {
+        const { chart, xScale, yScale, xAxis, yAxis, transition, classes } = this;
+        const { nice, xDomain, yDomain } = this.props;
 
-        const xd = this.xScale.domain(d3.extent(data, d => d.time));
-        const yd = this.yScale.domain(d3.extent(data, d => d.value));
+        const yExtent = yDomain || d3.extent(data, (d: BarChartData) => d.value);
+        const xd = xScale.domain(xDomain || d3.extent(data, (d: BarChartData) => d.bin));
+        const yd = yScale.domain(yExtent);
 
         if (nice) {
-            xd.nice();
-            yd.nice();
+            xd.nice()
+            yd.nice()
         }
 
-        const c = options.animate
-            ? this.chart.transition()
-            : this.chart
-
-        c.select(classes.xAxis).call(this.xAxis);
-        c.select(classes.yAxis).call(this.yAxis);
+        const c = chart.transition(transition);
+        c.select(classes.xAxis).call(xAxis);
+        c.select(classes.yAxis).call(yAxis);
     }
 
     /**
-     * Renders column Bars
+     * Render bars.
      * 
-     * @param data {BarChartData[]} - Data to render with
+     * @param data {BarChartData[]} - Data for the bar chart
+     * @param options {BarChartRenderOptions} - Options to render the chart
      */
-    renderGrid(data: BarChartData[]) {
-        const { classes } = this;
-        const { gridOrientation } = this.props;
+    renderBars(data: BarChartData[], options: BarChartRenderOptions) {
+        const { chart, xScale, yScale, transition, classes } = this;
+        const { barPadding, barType, showBackgroundColumns } = this.props;
         const [w, h] = this.dimensions();
 
-        if (gridOrientation == 'vertical') {
-            let column = this.chart.selectAll(classes.column)
-                .data(data)
-                .enter()
+        const width = w / data.length;
+        const barWidth = width - barPadding;
+
+        if (barWidth < 1) { throw new Error('BarChart is too small for the amount of data provided') }
+
+        console.log('show background cols', showBackgroundColumns);
+
+        if (showBackgroundColumns) {
+            const column = chart.selectAll(classes.column)
+                .data(data);
+
+            column.enter() // enter
                 .append('rect')
-                .attr('class', classes.column);
-
-            column.attr('width', 1)
-                .attr('height', (_: any) => h)
-                .attr('x', (d: BarChartData) => this.xScale(d.time))
-                .attr('y', 0);
-
+                .attr('class', classes.column)
+                .merge(column) // update
+                .transition(transition)
+                .attr('x', (d: BarChartData) => xScale(d.bin))
+                .attr('rx', barType == 'round' ? barWidth / 1.5 : 0)
+                .attr('ry', barType == 'round' ? barWidth / 2 : 0)
+                .attr('width', barWidth)
+                .attr('height', h);
 
             // exit
-            column.exit()
-                .remove();
-
-        } else {
-            this.chart.append('g')
-                .attr('class', classes.column)
-                .call(d3.axisLeft(this.yScale)
-                    .tickSize(-w)
-                    .tickFormat(null)
-                );
+            column.exit().remove();
         }
 
+        const bar = chart.selectAll(classes.bar)
+            .data(data);
+
+        bar.enter() // enter
+            .append('rect')
+            .attr('class', classes.bar)
+            .merge(bar) // update
+            .transition(transition)
+            .attr('x', (d: BarChartData) => xScale(d.bin))
+            .attr('y', (d: BarChartData) => yScale(d.value))
+            .attr('rx', barType == 'round' ? barWidth / 1.5 : 0)
+            .attr('ry', barType == 'round' ? barWidth / 2 : 0)
+            .attr('width', barWidth)
+            .attr('height', (d: BarChartData) => h - yScale(d.value));
+
+        // exit
+        bar.exit().remove();
+
+        const overlay = chart.selectAll(classes.overlay)
+            .data(data);
+
+        // enter
+        overlay.enter().append('rect')
+            .attr('class', classes.overlay);
+
+        // update
+        overlay.attr('x', (d: BarChartData) => xScale(d.bin))
+            .attr('width', width)
+            .attr('height', h)
+            .style('fill', 'transparent');
+
+        // exit
+        overlay.exit().remove();
     }
 
     /**
-     * Renders the chart Bar
+     * Render the chart against the given `data` which should be
+     * an array of objects with `bin` and `value` properties.
      * 
-     * @param data {BarChartData[]} - Data to render with
+     * @param data {BarChartData[]} - Data for the bar chart
+     * @param options {BarChartRenderOptions} - Options to render the chart
      */
-    renderBar(data: BarChartData[]) {
-        const { classes } = this;
-        const { BarColour } = this.props;
+    render(data: BarChartData[], options: BarChartRenderOptions) {
+        this.data = data;
 
-        let Bar = this.chart
-            .append("path")
-            .datum(data)
-            .attr('fill', 'none')
-            .attr('stroke', BarColour)
-            .attr("class", classes.Bar)
-            .attr("d", d3.line()
-                .x((d: any) => this.xScale(d.time))
-                .y((d: any) => this.yScale(d.value))
-                .curve(d3['curveBasis'])
-            );
+        let finalOptions = options || {};
 
-        Bar.exit()
-            .remove();
+        this.transition = d3.transition()
+            .duration(finalOptions.animate ? 300 : 0)
+            .ease(this.ease);
+
+        this.renderAxes(data);
+        this.renderBars(data, finalOptions);
     }
 
     /**
-     * Renders the tooltip
-     */
-    renderTooltip(data: BarChartData[]) {
-        let { classes } = this;
-        let [w, h] = this.dimensions();
-
-        this.tooltip = d3.select('body').append('div')
-            .attr('class', classes.tooltip)
-            .style('display', 'none');
-
-        this.focus = this.chart.append('g')
-            .attr('class', classes.focus)
-            .style('display', 'none');
-
-        this.focus.append('circle').attr('r', 5);
-
-        this.chart.append("rect")
-            .attr("class", classes.overlay)
-            .attr("width", w)
-            .attr("height", h)
-            .on("mouseover", () => { this.focus.style("display", null); this.tooltip.style("display", null);  })
-            .on("mouseout", () => { this.focus.style("display", "none"); this.tooltip.style("display", "none"); })
-            .on("mousemove", () => {}); //this.onMouseMove(data));
-    }
-
-    /**
-     * Render the chart against the given data.
+     * Update the chart against the given `data`.
      * 
-     * @param data {BarChartData[]} - Data to render with
-     * @param options {BarChartRenderOptions} - Options to render with
+     * @param data {BarChartData[]} - Data for the bar chart
+     * @param options {BarChartRenderOptions} - Options to render the chart
      */
-    render(data: BarChartData[], options?: BarChartRenderOptions) {
-        let finalOpts = options || { animate: true };
-
-        this.renderAxes(data, finalOpts);
-        this.renderGrid(data);
-        this.renderBar(data);
-        this.renderTooltip(data);
-    }
-
-    /**
-     * Update the chart against the given data.
-     * 
-     * @param data {BarChartData[]} - Data to render with
-     */
-    update(data: BarChartData[]) {
-        this.render(data, {
-            animate: true
-        });
+    update(data: BarChartData[], options: BarChartRenderOptions) {
+        this.render(data, options)
     }
 }

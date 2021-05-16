@@ -33,8 +33,6 @@ export class LineChart extends React.Component<LineChartProps, LineChartState> {
     }
 
     componentDidMount() {
-        console.log('width', this.containerRef.offsetWidth);
-
         let config: LineChartBuildConfig = {
             width: this.containerRef.offsetWidth,
             height: this.containerRef.offsetHeight,
