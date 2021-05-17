@@ -34,8 +34,6 @@ export class BarChart extends React.Component<BarChartProps, {}> {
             tickSize: 3
         };
 
-        console.log(this.props);
-
         if (this.props.barPadding) {
             config.barPadding = this.props.barPadding;
         }
@@ -47,8 +45,6 @@ export class BarChart extends React.Component<BarChartProps, {}> {
         if (this.props.showBackgroundColumns !== undefined) {
             config.showBackgroundColumns = this.props.showBackgroundColumns;
         }
-
-        console.log('final config', config);
 
         // Construct and render chart
         this.chartGen = new BarChartBuild(config, styles);

@@ -1,4 +1,13 @@
-import * as d3 from 'd3';
+import {
+    select as d3Select,
+    scaleLinear as d3ScaleLinear,
+    scaleTime as d3ScaleTime,
+    axisBottom as d3AxisBottom,
+    axisLeft as d3AxisLeft,
+    extent as d3Extent,
+    line as d3Line,
+    curveBasis
+} from 'd3';
 
 interface LineChartData {
     time: any,
@@ -114,24 +123,24 @@ export class LineChartBuild {
         const { tickSize, xTicks, yTicks } = this.props;
         const [w, h] = this.dimensions();
 
-        this.chart = d3.select(target)
+        this.chart = d3Select(target)
             .attr('width', width)
             .attr('height', height)
             .append('g')
             .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-        this.xScale = d3.scaleTime()
+        this.xScale = d3ScaleTime()
             .range([0, w]);
 
-        this.yScale = d3.scaleLinear()
+        this.yScale = d3ScaleLinear()
             .range([h, 0]);
 
-        this.xAxis = d3.axisBottom(this.xScale)
+        this.xAxis = d3AxisBottom(this.xScale)
             .ticks(xTicks)
             .tickPadding(8)
             .tickSize(tickSize);
 
-        this.yAxis = d3.axisLeft(this.yScale)
+        this.yAxis = d3AxisLeft(this.yScale)
             .ticks(yTicks)
             .tickPadding(8)
             .tickSize(tickSize);
@@ -157,8 +166,8 @@ export class LineChartBuild {
         const { nice } = this.props;
         const { classes } = this;
 
-        const xd = this.xScale.domain(d3.extent(data, d => d.time));
-        const yd = this.yScale.domain(d3.extent(data, d => d.value));
+        const xd = this.xScale.domain(d3Extent(data, d => d.time));
+        const yd = this.yScale.domain(d3Extent(data, d => d.value));
 
         if (nice) {
             xd.nice();
@@ -203,7 +212,7 @@ export class LineChartBuild {
         } else {
             this.chart.append('g')
                 .attr('class', classes.column)
-                .call(d3.axisLeft(this.yScale)
+                .call(d3AxisLeft(this.yScale)
                     .tickSize(-w)
                     .tickFormat(null)
                 );
@@ -226,10 +235,10 @@ export class LineChartBuild {
             .attr('fill', 'none')
             .attr('stroke', lineColour)
             .attr("class", classes.line)
-            .attr("d", d3.line()
+            .attr("d", d3Line()
                 .x((d: any) => this.xScale(d.time))
                 .y((d: any) => this.yScale(d.value))
-                .curve(d3['curveBasis'])
+                .curve(curveBasis)
             );
 
         line.exit()

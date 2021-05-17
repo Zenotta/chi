@@ -36,8 +36,6 @@ export const Dropdown: FunctionComponent<DropdownProps> = (props) => {
     const [selected, setSelected] = useState(0);
 
     const onSelect = (select: ItemSelection) => {
-        console.log("Key selected", select.key);
-
         if (props.onItemClick) {
             props.onItemClick(select);
         }

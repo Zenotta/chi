@@ -1,4 +1,15 @@
-import * as d3 from 'd3';
+import {
+    select as d3Select,
+    scaleLinear as d3ScaleLinear,
+    scaleTime as d3ScaleTime,
+    axisBottom as d3AxisBottom,
+    axisLeft as d3AxisLeft,
+    pointer as d3Pointer,
+    bisector as d3Bisector,
+    extent as d3Extent,
+    transition as d3Transition,
+    easeLinear
+ } from 'd3';
 
 interface BarChartData {
     bin: any,
@@ -138,7 +149,7 @@ export class BarChartBuild {
      * Handle mouseover.
      */
     onMouseOver() {
-        const m = d3.pointer(this.chart.node());
+        const m = d3Pointer(this.chart.node());
         const x = this.xScale.invert(m[0]);
         const i = this.xBisect(this.data, x, 1);
         const data = this.data[i - 1];
@@ -160,7 +171,7 @@ export class BarChartBuild {
         const { target, width, height, margin, axisPadding, tickSize, axis } = this.props;
         const [w, h] = this.dimensions();
 
-        this.chart = d3.select(target)
+        this.chart = d3Select(target)
             .attr('width', width)
             .attr('height', height)
             .append('g')
@@ -168,18 +179,18 @@ export class BarChartBuild {
             .on('mouseover', _ => this.onMouseOver())
             .on('mouseleave', _ => this.onMouseLeave())
 
-        this.xScale = d3.scaleTime()
+        this.xScale = d3ScaleTime()
             .range([0, w]);
 
-        this.yScale = d3.scaleLinear()
+        this.yScale = d3ScaleLinear()
             .range([h, 0]);
 
-        this.xAxis = d3.axisBottom(this.xScale)
+        this.xAxis = d3AxisBottom(this.xScale)
             .ticks(5)
             .tickPadding(8)
             .tickSize(tickSize);
 
-        this.yAxis = d3.axisLeft(this.yScale)
+        this.yAxis = d3AxisLeft(this.yScale)
             .ticks(3)
             .tickPadding(8)
             .tickSize(tickSize);
@@ -196,8 +207,8 @@ export class BarChartBuild {
                 .call(this.yAxis);
         }
 
-        this.xBisect = d3.bisector((d: any) => d.bin).left;
-        this.ease = d3['easeLinear'];
+        this.xBisect = d3Bisector((d: any) => d.bin).left;
+        this.ease = easeLinear;
     }
 
     /**
@@ -209,8 +220,8 @@ export class BarChartBuild {
         const { chart, xScale, yScale, xAxis, yAxis, transition, classes } = this;
         const { nice, xDomain, yDomain } = this.props;
 
-        const yExtent = yDomain || d3.extent(data, (d: BarChartData) => d.value);
-        const xd = xScale.domain(xDomain || d3.extent(data, (d: BarChartData) => d.bin));
+        const yExtent = yDomain || d3Extent(data, (d: BarChartData) => d.value);
+        const xd = xScale.domain(xDomain || d3Extent(data, (d: BarChartData) => d.bin));
         const yd = yScale.domain(yExtent);
 
         if (nice) {
@@ -238,8 +249,6 @@ export class BarChartBuild {
         const barWidth = width - barPadding;
 
         if (barWidth < 1) { throw new Error('BarChart is too small for the amount of data provided') }
-
-        console.log('show background cols', showBackgroundColumns);
 
         if (showBackgroundColumns) {
             const column = chart.selectAll(classes.column)
@@ -307,7 +316,7 @@ export class BarChartBuild {
 
         let finalOptions = options || {};
 
-        this.transition = d3.transition()
+        this.transition = d3Transition()
             .duration(finalOptions.animate ? 300 : 0)
             .ease(this.ease);
 
