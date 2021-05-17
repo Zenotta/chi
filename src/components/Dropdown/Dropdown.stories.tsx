@@ -4,7 +4,7 @@ import { Button } from "../Button/Button";
 import { Dropdown, DropdownProps } from './Dropdown';
 
 export default {
-    title: 'Example/Dropdown',
+    title: 'Components/Atoms/Dropdown',
     component: Dropdown,
 } as Meta;
 

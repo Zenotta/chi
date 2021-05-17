@@ -1,0 +1,59 @@
+.container {
+    width: 100%;
+    position: relative;
+
+    input {
+        border-radius: 4px;
+        width: 100%;
+        padding: 10px;
+        transition: .1s;
+        font-size: 0.875rem;
+        border: 1px solid rgb(206, 206, 206);
+        box-sizing: border-box;
+
+        &::placeholder {
+            opacity: .7;
+            font-style: italic;
+        }
+    }
+
+    /* clears the 'X' from Internet Explorer */
+    input[type=search]::-ms-clear {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    input[type=search]::-ms-reveal {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    /* clears the 'X' from Chrome */
+    input[type="search"]::-webkit-search-decoration,
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-results-button,
+    input[type="search"]::-webkit-search-results-decoration {
+        display: none;
+    }
+
+    .icon {
+        cursor: pointer;
+    }
+
+    .icon,
+    .loadingContainer {
+        top: 0;
+        bottom: 0;
+        right: 15px;
+        width: 15px;
+        height: 15px;
+        margin: auto 0;
+        position: absolute;
+    }
+
+    .loadingContainer {
+        top: -5px;
+    }
+}

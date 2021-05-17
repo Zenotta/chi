@@ -3,7 +3,7 @@ import React from 'react';
 import { BarChart, BarChartProps } from './BarChart';
 
 export default {
-    title: 'Example/BarChart',
+    title: 'Components/Charts/BarChart',
     component: BarChart,
     argTypes: {
         data: {
@@ -26,7 +26,7 @@ export default {
     }
 } as Meta;
 
-const gen = n => {
+const gen = (n: number) => {
     const series = [];
     for (var i = 0, variance = 0, value; i < n; i++) {
         variance += (Math.random() - 0.5) / 10;

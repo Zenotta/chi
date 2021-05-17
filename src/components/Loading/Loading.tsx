@@ -1,12 +1,14 @@
 import * as React from 'react';
 import styles from './Loading.scss';
 
-export interface ChiLoadingProps {
+export interface LoadingProps {
+    type: 'round' | 'square',
     colour?: string,
     overridingClass?: string
 }
 
-export const Loading = (props: ChiLoadingProps) => {
+export const Loading = (props: LoadingProps) => {
+    let lineCap: 'butt' | 'round' = props.type == 'square' ? 'butt' : props.type;
     return (
         <div className={`${styles.loadingContainer} ${props.overridingClass}`} role="status">
             <svg
@@ -19,6 +21,7 @@ export const Loading = (props: ChiLoadingProps) => {
                 fill="none"
                 stroke={props.colour ? props.colour : "#fff"}
                 strokeWidth="10"
+                strokeLinecap={lineCap}
                 r="35"
                 strokeDasharray="164.93361431346415 56.97787143782138"
                 transform="rotate(102.756 50 50)">

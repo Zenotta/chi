@@ -1,6 +1,6 @@
 /// <reference types="react" />
-export interface ChiLoadingProps {
+export interface LoadingProps {
     colour?: string;
     overridingClass?: string;
 }
-export declare const Loading: (props: ChiLoadingProps) => JSX.Element;
+export declare const Loading: (props: LoadingProps) => JSX.Element;

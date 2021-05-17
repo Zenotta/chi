@@ -3,7 +3,7 @@ import React from 'react';
 import { Notification, NotificationProps } from './Notification';
 
 export default {
-  title: 'Example/Notification',
+  title: 'Components/Display/Notification',
   component: Notification,
   argTypes: {
     colour: {

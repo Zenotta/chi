@@ -3,7 +3,7 @@ import React from 'react';
 import { LineChart, LineChartProps } from './LineChart';
 
 export default {
-    title: 'Example/LineChart',
+    title: 'Components/Charts/LineChart',
     component: LineChart,
     argTypes: {
         data: {

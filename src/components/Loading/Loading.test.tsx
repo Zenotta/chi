@@ -3,7 +3,7 @@ import { Loading } from './Loading';
 
 describe('Loading', () => {
   test('renders a default loading icon', async () => {
-    render(<Loading />);
+    render(<Loading type="round" />);
 
     expect(screen.getByRole("status")).toBeInTheDocument();
   });

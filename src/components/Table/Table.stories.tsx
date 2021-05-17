@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react';
 import { Table, TableProps } from './Table';
 
 export default {
-    title: 'Example/Table',
+    title: 'Components/Display/Table',
     component: Table,
     argTypes: {
         header: {

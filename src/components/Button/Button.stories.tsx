@@ -4,7 +4,7 @@ import { STORYBOOK_VALS } from '../../utils';
 import { Button, ButtonProps } from './Button';
 
 export default {
-  title: 'Example/Button',
+  title: 'Components/Atoms/Button',
   component: Button,
   argTypes: {
     variant: {
