@@ -109,7 +109,7 @@ export const Table = (props: TableProps) => {
      * @param orderBy {string} - ID to sort by
      */
     const descendingComparator = (a: any, b: any, orderBy: string): number => {
-        if (b[orderBy].value && a[orderBy].value) {
+        if (b[orderBy] && a[orderBy] && b[orderBy].value && a[orderBy].value) {
             if (b[orderBy].value < a[orderBy].value) {
                 return -1;
             }
