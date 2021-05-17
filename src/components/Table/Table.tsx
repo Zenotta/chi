@@ -109,12 +109,15 @@ export const Table = (props: TableProps) => {
      * @param orderBy {string} - ID to sort by
      */
     const descendingComparator = (a: any, b: any, orderBy: string): number => {
-        if (b[orderBy].value < a[orderBy].value) {
-            return -1;
+        if (b[orderBy].value && a[orderBy].value) {
+            if (b[orderBy].value < a[orderBy].value) {
+                return -1;
+            }
+            if (b[orderBy].value > a[orderBy].value) {
+                return 1;
+            }
         }
-        if (b[orderBy].value > a[orderBy].value) {
-            return 1;
-        }
+
         return 0;
     }
 
@@ -151,7 +154,7 @@ export const Table = (props: TableProps) => {
 
     // Reconstruct inputs by ID
     const header = injectHeaderId(props.header);
-    const body = props.body ? injectBodyRowId(props.body) : null;
+    const body = props.body && props.body.length ? injectBodyRowId(props.body) : null;
 
     // Set orderBy
     const [orderBy, setOrderBy] = useState(props.orderBy ? mapValueToId(props.orderBy) : mapValueToId(props.header[0].value));
@@ -188,18 +191,29 @@ export const Table = (props: TableProps) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {body && stableSort(body, getComparator())
+                        {body && body.length > 0 && stableSort(body, getComparator())
                             // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row: any, i) => {
                                 return (
                                     <tr key={i}>
-                                        {Object.keys(row).map((headerId) => {
+                                        {Object.keys(row).map((headerId, j) => {
                                             let alignment: 'right' | undefined = row[headerId].isNumeric ? "right" : undefined;
-                                            return <td key={row[headerId].id} align={alignment}>{row[headerId].value}</td>;
+                                            return <td key={j} align={alignment}>{row[headerId].value}</td>;
                                         })}
                                     </tr>
                                 );
                             })}
+                        {(body === null || body.length == 0) && [0, 1, 2, 3, 4].map((i) => {
+                            return (
+                                <tr key={i}>
+                                    {header.map((_, j) => {
+                                        return (<td key={j}>
+                                            <div className={styles.skeletonRow}></div>
+                                        </td>);
+                                    })}
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

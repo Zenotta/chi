@@ -25,7 +25,8 @@
         vertical-align: middle;
     }
 
-    th, td {
+    th,
+    td {
         display: table-cell;
         padding: 16px;
         font-size: 0.875rem;
@@ -108,7 +109,36 @@
     overflow: hidden;
     position: absolute;
 
-    & + svg {
+    &+svg {
         transition: 0.2s;
+    }
+}
+
+.skeletonRow {
+    border-radius: 4px;
+    height: 0.875rem;
+    position: relative;
+    overflow: hidden;
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        left: -150px;
+        top: 0;
+        height: 100%;
+        width: 150px;
+        background: linear-gradient(to right, transparent 0%, #E8E8E8 50%, transparent 100%);
+        animation: load .9s cubic-bezier(0.4, 0.0, 0.2, 1) infinite;
+    }
+}
+
+@keyframes load {
+    from {
+        left: -150px;
+    }
+
+    to {
+        left: 100%;
     }
 }
