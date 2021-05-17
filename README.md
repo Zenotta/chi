@@ -22,12 +22,12 @@ yarn add chi-ui
 ## 💻 Usage
 
 ```javascript
-import { Button, Search } from 'chi-ui';
+import { Button, TextInput } from 'chi-ui';
 
 const App = () => (
   <>
     <Button variant="contained">PRESS ME</Button>
-    <Search label="Search here..." />
+    <TextInput label="Search here..." />
   </>
 );
 ```
