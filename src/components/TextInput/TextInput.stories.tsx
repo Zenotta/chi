@@ -52,6 +52,39 @@ export const Autocomplete = Template.bind({});
 Autocomplete.args = {
     primaryColour: "#000000",
     shouldSubmitOnEnter: true,
+    label: 'Try typing "item"',
+    onSubmit: (val: string) => { console.log("Input was submitted! Input:", val) },
+    autocompleteValues: [ { value: 'First Item' }, { value: 'Second Item' } ]
+};
+
+export const StandardField = Template.bind({});
+StandardField.args = {
+    primaryColour: "#000000",
+    label: 'Type standard text here...'
+};
+
+export const LoadingField = Template.bind({});
+LoadingField.args = {
+    primaryColour: "#000000",
+    label: 'This input is loading',
+    loading: true
+};
+
+export const PasswordField = Template.bind({});
+PasswordField.args = {
+    primaryColour: "#000000",
+    type: 'password',
+    iconType: 'text',
+    label: 'Type your password here...'
+};
+
+export const SearchField = Template.bind({});
+SearchField.args = {
+    primaryColour: "#000000",
+    type: 'search',
+    iconType: 'text',
+    label: 'Type your search term here (try "item")',
+    shouldSubmitOnEnter: true,
     onSubmit: (val: string) => { console.log("Input was submitted! Input:", val) },
     autocompleteValues: [ { value: 'First Item' }, { value: 'Second Item' } ]
 };

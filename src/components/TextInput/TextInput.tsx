@@ -152,7 +152,7 @@ export const TextInput = (props: TextInputProps) => {
 
             {!props.autocompleteValues && getTextInputInput()}  
 
-            {props.loading && <div className={styles.loadingContainer}><Loading colour={loadingColour} /></div>}
+            {props.loading && <div className={styles.loadingContainer}><Loading type="round" colour={loadingColour} /></div>}
             {!props.loading && 
                 <span 
                     className={styles.icon} 

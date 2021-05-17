@@ -126,7 +126,7 @@ export const Button: FunctionComponent<ButtonProps> = (props) => {
       onClick={() => handleClick()}>
       {props.loading &&
         <span className={styles.loadingContainer}>
-          <Loading colour={loadingColour} />
+          <Loading type="round" colour={loadingColour} />
         </span>
       }
       {!props.loading && props.startIcon}

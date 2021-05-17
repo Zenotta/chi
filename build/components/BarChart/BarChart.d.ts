@@ -7,7 +7,7 @@ export interface BarChartProps {
     showBackgroundColumns?: boolean;
 }
 interface BarChartDatum {
-    time: any;
+    bin: any;
     value: number;
 }
 export declare class BarChart extends React.Component<BarChartProps, {}> {

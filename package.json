@@ -57,7 +57,6 @@
     "react-dom": ">=17.0.1"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.4",
     "aphrodite": "^2.4.0",
     "d3": "^6.7.0",
     "postcss": "^8.2.15",
