@@ -54,8 +54,8 @@ const Template: Story<ButtonProps & { children: any }> = (args) => {
   );
 };
 
-export const Standard = Template.bind({});
-Standard.args = {
+export const Default = Template.bind({});
+Default.args = {
   mainColour: STORYBOOK_VALS.primary,
   children: "Click Me",
 };

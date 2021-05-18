@@ -9,7 +9,7 @@ import {
     extent as d3Extent,
     transition as d3Transition,
     easeLinear
- } from 'd3';
+} from 'd3';
 
 interface BarChartData {
     bin: any,
@@ -238,9 +238,8 @@ export class BarChartBuild {
      * Render bars.
      * 
      * @param data {BarChartData[]} - Data for the bar chart
-     * @param options {BarChartRenderOptions} - Options to render the chart
      */
-    renderBars(data: BarChartData[], options: BarChartRenderOptions) {
+    renderBars(data: BarChartData[]) {
         const { chart, xScale, yScale, transition, classes } = this;
         const { barPadding, barType, showBackgroundColumns } = this.props;
         const [w, h] = this.dimensions();
@@ -250,58 +249,67 @@ export class BarChartBuild {
 
         if (barWidth < 1) { throw new Error('BarChart is too small for the amount of data provided') }
 
-        if (showBackgroundColumns) {
-            const column = chart.selectAll(classes.column)
+        if (data.length) {
+            if (showBackgroundColumns) {
+                const column = chart.selectAll(classes.column)
+                    .data(data);
+
+                column.enter() // enter
+                    .append('rect')
+                    .attr('class', classes.column)
+                    .merge(column) // update
+                    .transition(transition)
+                    .attr('x', (d: BarChartData) => xScale(d.bin))
+                    .attr('rx', barType == 'round' ? barWidth / 1.5 : 0)
+                    .attr('ry', barType == 'round' ? barWidth / 2 : 0)
+                    .attr('width', barWidth)
+                    .attr('height', h);
+
+                // exit
+                column.exit().remove();
+            }
+
+            const bar = chart.selectAll(classes.bar)
                 .data(data);
 
-            column.enter() // enter
+            bar.enter() // enter
                 .append('rect')
-                .attr('class', classes.column)
-                .merge(column) // update
+                .attr('class', classes.bar)
+                .merge(bar) // update
                 .transition(transition)
                 .attr('x', (d: BarChartData) => xScale(d.bin))
+                .attr('y', (d: BarChartData) => yScale(d.value))
                 .attr('rx', barType == 'round' ? barWidth / 1.5 : 0)
                 .attr('ry', barType == 'round' ? barWidth / 2 : 0)
                 .attr('width', barWidth)
-                .attr('height', h);
+                .attr('height', (d: BarChartData) => h - yScale(d.value));
 
             // exit
-            column.exit().remove();
+            bar.exit().remove();
+
+            const overlay = chart.selectAll(classes.overlay)
+                .data(data);
+
+            // enter
+            overlay.enter().append('rect')
+                .attr('class', classes.overlay);
+
+            // update
+            overlay.attr('x', (d: BarChartData) => xScale(d.bin))
+                .attr('width', width)
+                .attr('height', h)
+                .style('fill', 'transparent');
+
+            // exit
+            overlay.exit().remove();
+        } else {
+            chart.append('text')
+                .attr('class', classes.notification)
+                .attr('x', (_: any) => w / 2)
+                .attr('y', (_: any) => h / 2)
+                .attr("font-size", ".75em")
+                .text('No data...');
         }
-
-        const bar = chart.selectAll(classes.bar)
-            .data(data);
-
-        bar.enter() // enter
-            .append('rect')
-            .attr('class', classes.bar)
-            .merge(bar) // update
-            .transition(transition)
-            .attr('x', (d: BarChartData) => xScale(d.bin))
-            .attr('y', (d: BarChartData) => yScale(d.value))
-            .attr('rx', barType == 'round' ? barWidth / 1.5 : 0)
-            .attr('ry', barType == 'round' ? barWidth / 2 : 0)
-            .attr('width', barWidth)
-            .attr('height', (d: BarChartData) => h - yScale(d.value));
-
-        // exit
-        bar.exit().remove();
-
-        const overlay = chart.selectAll(classes.overlay)
-            .data(data);
-
-        // enter
-        overlay.enter().append('rect')
-            .attr('class', classes.overlay);
-
-        // update
-        overlay.attr('x', (d: BarChartData) => xScale(d.bin))
-            .attr('width', width)
-            .attr('height', h)
-            .style('fill', 'transparent');
-
-        // exit
-        overlay.exit().remove();
     }
 
     /**
@@ -321,7 +329,7 @@ export class BarChartBuild {
             .ease(this.ease);
 
         this.renderAxes(data);
-        this.renderBars(data, finalOptions);
+        this.renderBars(data);
     }
 
     /**

@@ -57,29 +57,29 @@ Autocomplete.args = {
     autocompleteValues: [ { value: 'First Item' }, { value: 'Second Item' } ]
 };
 
-export const StandardField = Template.bind({});
-StandardField.args = {
+export const Default = Template.bind({});
+Default.args = {
     primaryColour: "#000000",
     label: 'Type standard text here...'
 };
 
-export const LoadingField = Template.bind({});
-LoadingField.args = {
+export const Loading = Template.bind({});
+Loading.args = {
     primaryColour: "#000000",
     label: 'This input is loading',
     loading: true
 };
 
-export const PasswordField = Template.bind({});
-PasswordField.args = {
+export const Password = Template.bind({});
+Password.args = {
     primaryColour: "#000000",
     type: 'password',
     iconType: 'text',
     label: 'Type your password here...'
 };
 
-export const SearchField = Template.bind({});
-SearchField.args = {
+export const Search = Template.bind({});
+Search.args = {
     primaryColour: "#000000",
     type: 'search',
     iconType: 'text',

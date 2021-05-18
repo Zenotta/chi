@@ -27,8 +27,8 @@ const Template: Story<LoadingProps> = (args) => {
     );
 };
 
-export const Standard = Template.bind({});
-Standard.args = {
+export const Default = Template.bind({});
+Default.args = {
     colour: "#000",
     type: 'round'
 };

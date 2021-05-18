@@ -47,7 +47,13 @@ const Template: Story<BarChartProps & { children: React.ReactElement[] }> = (arg
     );
 };
 
-export const Standard = Template.bind({});
-Standard.args = {
+export const Default = Template.bind({});
+Default.args = {
     data: gen(12)
+};
+
+
+export const Empty = Template.bind({});
+Empty.args = {
+    data: []
 };

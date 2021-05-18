@@ -3,6 +3,6 @@ import React from 'react';
 import { DropdownProps } from './Dropdown';
 declare const _default: Meta<import("@storybook/react").Args>;
 export default _default;
-export declare const WithButton: Story<DropdownProps & {
+export declare const Hover: Story<DropdownProps & {
     children: React.ReactElement[];
 }>;

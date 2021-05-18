@@ -3,6 +3,9 @@ import React from 'react';
 import { LineChartProps } from './LineChart';
 declare const _default: Meta<import("@storybook/react").Args>;
 export default _default;
-export declare const Standard: Story<LineChartProps & {
+export declare const Default: Story<LineChartProps & {
+    children: React.ReactElement[];
+}>;
+export declare const Empty: Story<LineChartProps & {
     children: React.ReactElement[];
 }>;

@@ -46,9 +46,14 @@ const Template: Story<LineChartProps & { children: React.ReactElement[] }> = (ar
     );
 };
 
-export const Standard = Template.bind({});
-Standard.args = {
+export const Default = Template.bind({});
+Default.args = {
     data: gen(12),
     lineColour: '#248fff',
     grid: 'vertical'
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+    data: [],
 };

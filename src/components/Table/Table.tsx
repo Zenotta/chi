@@ -160,63 +160,61 @@ export const Table = (props: TableProps) => {
     const [orderBy, setOrderBy] = useState(props.orderBy ? mapValueToId(props.orderBy) : mapValueToId(props.header[0].value));
 
     return (
-        <section className={styles.superContainer}>
-            <div className={`${styles.container} ${props.overridingClass}`}>
-                <table className={styles.table} role="table" aria-label="data table">
-                    <thead>
-                        <tr>
-                            {header.map((heading: TableCell) => {
-                                let alignment: 'right' | undefined = heading.isNumeric ? "right" : undefined;
+        <div className={`${styles.container} ${props.overridingClass}`}>
+            <table className={styles.table} role="table" aria-label="data table">
+                <thead>
+                    <tr>
+                        {header.map((heading: TableCell) => {
+                            let alignment: 'right' | undefined = heading.isNumeric ? "right" : undefined;
 
-                                return (
-                                    <th
-                                        key={heading.id}
-                                        align={alignment}>
-                                        {props.sortable &&
-                                            <div
-                                                className={`${styles.sorter} ${orderBy == heading.id ? styles.active : ''}`}
-                                                onClick={() => handleRequestSort(heading.id)}>
-                                                {heading.value}
-                                                {orderBy == heading.id ? (
-                                                    <span className={styles.screenreaderVisible}>
-                                                        {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                                                    </span>
-                                                ) : null}
-                                                {getArrowIcon()}
-                                            </div>}
-                                        {!props.sortable && heading.value}
-                                    </th>
-                                );
-                            })}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {body && body.length > 0 && stableSort(body, getComparator())
-                            // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row: any, i) => {
-                                return (
-                                    <tr key={i}>
-                                        {Object.keys(row).map((headerId, j) => {
-                                            let alignment: 'right' | undefined = row[headerId].isNumeric ? "right" : undefined;
-                                            return <td key={j} align={alignment}>{row[headerId].value}</td>;
-                                        })}
-                                    </tr>
-                                );
-                            })}
-                        {(body === null || body.length == 0) && [0, 1, 2, 3, 4].map((i) => {
+                            return (
+                                <th
+                                    key={heading.id}
+                                    align={alignment}>
+                                    {props.sortable &&
+                                        <div
+                                            className={`${styles.sorter} ${orderBy == heading.id ? styles.active : ''}`}
+                                            onClick={() => handleRequestSort(heading.id)}>
+                                            {heading.value}
+                                            {orderBy == heading.id ? (
+                                                <span className={styles.screenreaderVisible}>
+                                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                                </span>
+                                            ) : null}
+                                            {getArrowIcon()}
+                                        </div>}
+                                    {!props.sortable && heading.value}
+                                </th>
+                            );
+                        })}
+                    </tr>
+                </thead>
+                <tbody>
+                    {body && body.length > 0 && stableSort(body, getComparator())
+                        // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                        .map((row: any, i) => {
                             return (
                                 <tr key={i}>
-                                    {header.map((_, j) => {
-                                        return (<td key={j}>
-                                            <div className={styles.skeletonRow}></div>
-                                        </td>);
+                                    {Object.keys(row).map((headerId, j) => {
+                                        let alignment: 'right' | undefined = row[headerId].isNumeric ? "right" : undefined;
+                                        return <td key={j} align={alignment}>{row[headerId].value}</td>;
                                     })}
                                 </tr>
                             );
                         })}
-                    </tbody>
-                </table>
-            </div>
-        </section>
+                    {(body === null || body.length == 0) && [0, 1, 2, 3, 4].map((i) => {
+                        return (
+                            <tr key={i}>
+                                {header.map((_, j) => {
+                                    return (<td key={j}>
+                                        <div className={styles.skeletonRow}></div>
+                                    </td>);
+                                })}
+                            </tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
     );
 }

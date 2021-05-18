@@ -227,22 +227,31 @@ export class LineChartBuild {
      */
     renderLine(data: LineChartData[]) {
         const { classes } = this;
-        const { lineColour } = this.props;
+        const { lineColour, width, height } = this.props;
 
-        let line = this.chart
-            .append("path")
-            .datum(data)
-            .attr('fill', 'none')
-            .attr('stroke', lineColour)
-            .attr("class", classes.line)
-            .attr("d", d3Line()
-                .x((d: any) => this.xScale(d.time))
-                .y((d: any) => this.yScale(d.value))
-                .curve(curveBasis)
-            );
-
-        line.exit()
-            .remove();
+        if (data.length) {
+            let line = this.chart
+                .append("path")
+                .datum(data)
+                .attr('fill', 'none')
+                .attr('stroke', lineColour)
+                .attr("class", classes.line)
+                .attr("d", d3Line()
+                    .x((d: any) => this.xScale(d.time))
+                    .y((d: any) => this.yScale(d.value))
+                    .curve(curveBasis)
+                );
+    
+            line.exit()
+                .remove();
+        } else {
+            this.chart.append('text')
+                .attr('class', classes.notification)
+                .attr('x', (_: any) => width / 2)
+                .attr('y', (_: any) => height / 2)
+                .attr("font-size", ".75em")
+                .text('No data...');
+        }
     }
 
     /**

@@ -102,9 +102,8 @@ export declare class BarChartBuild {
      * Render bars.
      *
      * @param data {BarChartData[]} - Data for the bar chart
-     * @param options {BarChartRenderOptions} - Options to render the chart
      */
-    renderBars(data: BarChartData[], options: BarChartRenderOptions): void;
+    renderBars(data: BarChartData[]): void;
     /**
      * Render the chart against the given `data` which should be
      * an array of objects with `bin` and `value` properties.

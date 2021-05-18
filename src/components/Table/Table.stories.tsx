@@ -65,8 +65,8 @@ Sortable.args = {
     ]
 };
 
-export const NoBody = Template.bind({});
-NoBody.args = {
+export const Empty = Template.bind({});
+Empty.args = {
     header: [
         { value: "Block Hash", isNumeric: false },
         { value: "Previous Hash", isNumeric: false },

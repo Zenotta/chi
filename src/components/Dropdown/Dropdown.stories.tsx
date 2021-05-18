@@ -16,8 +16,8 @@ const Template: Story<DropdownProps & { children: React.ReactElement[] }> = (arg
     );
 };
 
-export const WithButton = Template.bind({});
-WithButton.args = {
+export const Hover = Template.bind({});
+Hover.args = {
     dropdownMethod: 'hover',
     listItems: [
         {
