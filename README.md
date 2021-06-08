@@ -27,7 +27,7 @@ import { Button, TextInput } from 'chi-ui';
 const App = () => (
   <>
     <Button variant="contained">PRESS ME</Button>
-    <TextInput label="Search here..." />
+    <TextInput type="search" label="Search here..." />
   </>
 );
 ```
