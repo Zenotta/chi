@@ -64,6 +64,15 @@
                 text-decoration: underline;
             }
         }
+
+        &.shaded {
+            border-bottom: 0;
+            background: rgba(224, 224, 224, .4);
+        }
+
+        &.base {
+            border-bottom: 0;
+        }
     }
 }
 

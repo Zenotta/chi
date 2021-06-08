@@ -17,7 +17,8 @@ export interface TableProps {
     orderBy?: string,
     order?: 'asc' | 'desc',
     rowCount?: number,
-    overridingClass?: string
+    overridingClass?: string,
+    zebraStripes?: boolean
 }
 
 interface HeaderId {
@@ -196,8 +197,9 @@ export const Table = (props: TableProps) => {
                             return (
                                 <tr key={i}>
                                     {Object.keys(row).map((headerId, j) => {
+                                        let shadeClass = props.zebraStripes ? i % 2 === 0 ? styles.shaded : styles.base : '';
                                         let alignment: 'right' | undefined = row[headerId].isNumeric ? "right" : undefined;
-                                        return <td key={j} align={alignment}>{row[headerId].value}</td>;
+                                        return <td key={j} align={alignment} className={shadeClass}>{row[headerId].value}</td>;
                                     })}
                                 </tr>
                             );
