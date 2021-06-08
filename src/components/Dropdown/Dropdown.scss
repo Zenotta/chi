@@ -9,7 +9,7 @@
     top: -9999px;
     z-index: 1070;
     font-family: Helvetica, Arial, sans-serif;
-    font-size: 1rem;
+    font-size: .9rem;
     font-weight: normal;
     line-height: 1.5;
 
@@ -22,7 +22,7 @@
     }
 
     ul > :global.rc-dropdown-menu-item {
-        font-size: 1rem;
+        font-size: .9rem;
         color: black;
         cursor: pointer;
 

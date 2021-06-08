@@ -43,13 +43,7 @@ export default {
 const Template: Story<ButtonProps & { children: any }> = (args) => {
   return (
     <div style={{ width: 150 }}>
-      <div style={{ marginBottom: 15 }}>
-        <Button {...args} />
-      </div>
-      <div style={{ marginBottom: 15 }}>
-        <Button variant='outlined'>Click Me</Button>
-      </div>
-      <Button variant='contained'>Click Me</Button>
+      <Button {...args} />
     </div>
   );
 };
@@ -58,4 +52,25 @@ export const Default = Template.bind({});
 Default.args = {
   mainColour: STORYBOOK_VALS.primary,
   children: "Click Me",
+};
+
+export const Outlined = Template.bind({});
+Outlined.args = {
+  mainColour: STORYBOOK_VALS.primary,
+  children: "Click Me",
+  variant: 'outlined'
+};
+
+export const Contained = Template.bind({});
+Contained.args = {
+  mainColour: STORYBOOK_VALS.primary,
+  children: "Click Me",
+  variant: 'contained'
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  mainColour: STORYBOOK_VALS.primary,
+  children: "Click Me",
+  disabled: true
 };

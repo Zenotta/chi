@@ -26,7 +26,7 @@ export interface DropdownProps {
     onItemClick?: Function,
 }
 
-interface ItemSelection {
+export interface ItemSelection {
     key: any
 }
 
@@ -56,7 +56,7 @@ export const Dropdown: FunctionComponent<DropdownProps> = (props) => {
     }
 
     return (
-        <div className={styles.container} data-testid="dropdown">
+        <div className={`${styles.container} ${props.overridingClass}`} data-testid="dropdown">
             <RcDropdown
                 placement={placement}
                 trigger={[dropdownMethod]}
