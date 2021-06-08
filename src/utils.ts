@@ -1,7 +1,10 @@
 export const STORYBOOK_VALS = {
     primary: "#2a8def",
     disabled: "#bdc7cf",
-    cta: "#EA3546"
+    cta: "#EA3546",
+    smokeBg: "#F5F5F5",
+    lightGray: "#BEBEBE",
+    darkGray: "#808080"
 }
 
 export const lightenDarkenColour = (colour: string, amount: number): string => {
@@ -46,4 +49,3 @@ function hexToRgb(hex: string) {
         b: parseInt(result[3], 16)
     } : null;
 }
-
