@@ -5,3 +5,12 @@ export default _default;
 export declare const Default: Story<ButtonProps & {
     children: any;
 }>;
+export declare const Outlined: Story<ButtonProps & {
+    children: any;
+}>;
+export declare const Contained: Story<ButtonProps & {
+    children: any;
+}>;
+export declare const Disabled: Story<ButtonProps & {
+    children: any;
+}>;

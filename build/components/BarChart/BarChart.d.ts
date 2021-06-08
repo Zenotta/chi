@@ -3,6 +3,7 @@ export interface BarChartProps {
     data: BarChartDatum[];
     barType?: 'round' | 'square';
     barPadding?: number;
+    barColour?: string;
     overridingClass?: string;
     showBackgroundColumns?: boolean;
 }

@@ -14,5 +14,8 @@ export interface DropdownProps {
     visible?: boolean;
     onItemClick?: Function;
 }
+export interface ItemSelection {
+    key: any;
+}
 export declare const Dropdown: FunctionComponent<DropdownProps>;
 export {};

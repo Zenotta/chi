@@ -12,5 +12,6 @@ export interface TableProps {
     order?: 'asc' | 'desc';
     rowCount?: number;
     overridingClass?: string;
+    zebraStripes?: boolean;
 }
 export declare const Table: (props: TableProps) => JSX.Element;

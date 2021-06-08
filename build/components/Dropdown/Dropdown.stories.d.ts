@@ -6,3 +6,6 @@ export default _default;
 export declare const Hover: Story<DropdownProps & {
     children: React.ReactElement[];
 }>;
+export declare const Click: Story<DropdownProps & {
+    children: React.ReactElement[];
+}>;
