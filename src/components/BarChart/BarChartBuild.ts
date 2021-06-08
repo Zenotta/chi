@@ -241,7 +241,7 @@ export class BarChartBuild {
      */
     renderBars(data: BarChartData[]) {
         const { chart, xScale, yScale, transition, classes } = this;
-        const { barPadding, barType, showBackgroundColumns } = this.props;
+        const { barPadding, barType, showBackgroundColumns, barColour } = this.props;
         const [w, h] = this.dimensions();
 
         const width = w / data.length;
@@ -277,6 +277,7 @@ export class BarChartBuild {
                 .attr('class', classes.bar)
                 .merge(bar) // update
                 .transition(transition)
+                .attr('fill', barColour)
                 .attr('x', (d: BarChartData) => xScale(d.bin))
                 .attr('y', (d: BarChartData) => yScale(d.value))
                 .attr('rx', barType == 'round' ? barWidth / 1.5 : 0)

@@ -9,6 +9,13 @@ export default {
         data: {
             description: 'Data to populate chart. Each data entry must have the structure `{ value: number, bin: Date }`'
         },
+        barColour: {
+            defaultValue: '#000',
+            description: 'The colour of the chart\'s bars',
+            control: {
+                type: "color"
+            }
+        },
         barType: {
             defaultValue: 'round',
             description: 'Whether the chart\'s bars should be rounded or squared'

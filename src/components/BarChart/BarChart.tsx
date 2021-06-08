@@ -6,6 +6,7 @@ export interface BarChartProps {
     data: BarChartDatum[],
     barType?: 'round' | 'square',
     barPadding?: number,
+    barColour?: string,
     overridingClass?: string,
     showBackgroundColumns?: boolean
 }
@@ -36,6 +37,10 @@ export class BarChart extends React.Component<BarChartProps, {}> {
 
         if (this.props.barPadding) {
             config.barPadding = this.props.barPadding;
+        }
+
+        if (this.props.barColour) {
+            config.barColour = this.props.barColour;
         }
 
         if (this.props.barType) {
