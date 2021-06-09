@@ -1,3 +1,5 @@
+![](build/cover.png)
+
 # Chi
 
 ![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/zenotta/chi/master)
