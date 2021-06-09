@@ -23,10 +23,11 @@ install:
 build:
   stage: build
   script:
-    - CI=false npm run build-storybook
+    - CI=false npm run build-storybook -o ./public
   artifacts:
     paths:
       - build
+      - public
     expire_in: 60 mins
   dependencies:
     - install
@@ -45,11 +46,6 @@ pages:
   cache:
     paths:
     - node_modules/
-
-  script:
-  - npm update
-  - npm install
-  - yarn build-storybook -o ./public
   artifacts:
     paths:
     - public
