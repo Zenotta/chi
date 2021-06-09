@@ -4,6 +4,7 @@ stages:
   - install
   - build
   - quality
+  - pages
 
 # Install
 install:
@@ -40,6 +41,7 @@ test:unit:
 
 # Pages
 pages:
+  stage: pages
   cache:
     paths:
     - node_modules/
