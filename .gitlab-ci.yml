@@ -38,3 +38,20 @@ test:unit:
       -  npm run test
    dependencies:
       - install
+
+# Pages
+pages:
+  stage: pages
+  cache:
+    paths:
+    - node_modules/
+
+  script:
+  - npm update
+  - npm install
+  - yarn build-storybook -o ./public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
