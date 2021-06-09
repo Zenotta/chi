@@ -1,4 +1,4 @@
-![](build/cover.png)
+![](assets/cover.png)
 
 # Chi
 
