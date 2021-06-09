@@ -2,7 +2,7 @@ image: node:10
 
 stages:
   - install
-  - build
+  - pages
   - quality
 
 # Install
@@ -20,12 +20,11 @@ install:
 
 # Build
 pages:
-  stage: build
+  stage: pages
   script:
     - CI=false npm run build-storybook -o ./public
   artifacts:
     paths:
-      - build
       - public
     expire_in: 60 mins
   dependencies:
