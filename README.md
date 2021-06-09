@@ -5,9 +5,9 @@
 ![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/zenotta/chi/master)
 ![NPM](https://img.shields.io/npm/l/chi-ui)
 
-[Check out components here](https://zenotta.gitlab.io/chi)
-
 Chi is Zenotta's no-frills front end component library for use in blockchain UI applications, written for React. For when your blockchain projects don't need fancy, and want to ship fast and flexible.
+
+[Check out components here](https://zenotta.gitlab.io/chi)
 
 ..
 

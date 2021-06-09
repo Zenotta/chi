@@ -5,7 +5,7 @@
   "main": "./build/index.js",
   "module": "./build/index.es.js",
   "scripts": {
-    "start": "start-storybook -p 6006",
+    "start": "start-storybook -p 6006 --no-manager-cache",
     "build-storybook": "build-storybook",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -57,6 +57,8 @@
     "react-dom": ">=17.0.1"
   },
   "dependencies": {
+    "@storybook/addons": "^6.2.9",
+    "@storybook/theming": "^6.2.9",
     "aphrodite": "^2.4.0",
     "d3": "^6.7.0",
     "postcss": "^8.2.15",
