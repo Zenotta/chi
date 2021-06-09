@@ -4,6 +4,7 @@ stages:
   - install
   - build
   - quality
+  - pages
 
 # Install
 install:
