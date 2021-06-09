@@ -4,7 +4,6 @@ stages:
   - install
   - build
   - quality
-  - pages
 
 # Install
 install:
@@ -20,7 +19,7 @@ install:
         - node_modules/
 
 # Build
-build:
+pages:
   stage: build
   script:
     - CI=false npm run build-storybook -o ./public
@@ -39,15 +38,3 @@ test:unit:
       -  npm run test
    dependencies:
       - install
-
-# Pages
-pages:
-  stage: pages
-  cache:
-    paths:
-    - node_modules/
-  artifacts:
-    paths:
-    - public
-  only:
-  - master
