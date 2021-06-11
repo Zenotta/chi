@@ -1,0 +1,118 @@
+.pagination {
+  --bg: #e0e0e0;
+  --selected: #bebebe;
+  --selected-hover: #bebebe;
+  --text: #000000;
+  --border-color: #808080;
+  --vsize: 2;
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: var(--text);
+  font-family: Helvetica, Arial, sans-serif;
+
+  .pageNumbers {
+    line-height: var(--vsize);
+    display: inline-block;
+
+    ul {
+      padding: 0;
+      border-radius: 5px;
+      border-width: thin;
+      border-color: var(--border-color);
+      background: var(--bg);
+      box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05), 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+      display: inline-block;
+
+      li {
+        display: inline-block;
+      }
+    }
+  }
+
+  .pageNumber {
+    cursor: pointer;
+    width: 38px;
+    transition: 0.3s;
+
+    &:hover {
+      background: var(--selected-hover);
+      border-radius: 5px;
+      transform: translateY(-1px);
+    }
+  }
+
+  .activePageNumber {
+    border-radius: 5px;
+    background: var(--selected);
+  }
+
+  .pageNumberSpacer {
+    padding: 0 15px;
+  }
+
+  .arrowContainer {
+    padding: 0 30px;
+    position: relative;
+  }
+
+  .arrowLeft {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  .linkArrowed {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding: 0 20px;
+    font-weight: 400;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 2rem;
+
+    .arrowIcon {
+      background: transparent;
+      border-radius: 100%;
+      position: relative;
+      top: -1px;
+      -webkit-transition: -webkit-transform 0.3s ease;
+      transition: -webkit-transform 0.3s ease;
+      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+      vertical-align: middle;
+
+      &:hover {
+        cursor: pointer;
+        background-color: transparent;
+        background: var(--selected-hover);
+        transform: translate3d(3px, 0, 0);
+
+        .arrowIconCircle.arrowStrokeAnimation {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      .arrowIconCircle {
+        transition: stroke-dashoffset 0.3s ease;
+        stroke-dasharray: 95;
+        stroke-dashoffset: 95;
+      }
+
+      &.arrowBackgroundEnabled {
+        background-color: var(--bg);
+
+        &:hover {
+          background-color: var(--selected-hover);
+        }
+      }
+    }
+  }
+}

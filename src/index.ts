@@ -6,3 +6,4 @@ export { Dropdown } from './components/Dropdown/Dropdown';
 export { Notification } from './components/Notification/Notification';
 export { LineChart } from './components/LineChart/LineChart';
 export { BarChart } from './components/BarChart/BarChart';
+export { Pagination } from './components/Pagination/Pagination';
