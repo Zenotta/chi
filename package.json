@@ -1,6 +1,6 @@
 {
   "name": "chi-ui",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Chi is Zenotta's no-frills component library for use in blockchain UI applications",
   "main": "./build/index.js",
   "module": "./build/index.es.js",
