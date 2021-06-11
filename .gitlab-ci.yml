@@ -23,6 +23,10 @@ pages:
   stage: pages
   script:
     - CI=false npm run build-storybook
+  artifacts:
+    paths:
+      - public
+    expire_in: 10 mins
   dependencies:
     - install
 
