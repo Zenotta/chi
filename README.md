@@ -1,6 +1,8 @@
-![](assets/cover.png)
+<a href="https://zenotta.gitlab.io/chi">
+  <img width="100%" src="https://gitlab.com/zenotta/chi/-/raw/master/assets/cover.png">
+</a>
 
-# Chi
+<h1>Chi</h1>
 
 ![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/zenotta/chi/master)
 ![NPM](https://img.shields.io/npm/l/chi-ui)
