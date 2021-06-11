@@ -6,7 +6,7 @@
   "module": "./build/index.es.js",
   "scripts": {
     "start": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -o ./public",
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "rollup -c"
