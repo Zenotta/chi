@@ -11,6 +11,9 @@ export declare const Outlined: Story<ButtonProps & {
 export declare const Contained: Story<ButtonProps & {
     children: any;
 }>;
+export declare const Loading: Story<ButtonProps & {
+    children: any;
+}>;
 export declare const Disabled: Story<ButtonProps & {
     children: any;
 }>;
