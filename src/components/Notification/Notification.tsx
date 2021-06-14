@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from 'react';
 import styles from './Notification.scss';
+import { transparentizeColour } from '../../utils';
 
 type NotificationType =
     | 'info'
@@ -10,8 +11,6 @@ type NotificationType =
 export interface NotificationProps {
     type: NotificationType,
     closable?: boolean,
-    heading?: boolean,
-    closeItem?: any,
     colour?: string,
     overridingClass?: string,
     variant?: 'text' | 'outlined' | 'contained'
@@ -26,12 +25,40 @@ export const Notification: FunctionComponent<NotificationProps> = (props) => {
     const variantClass = props.variant ? styles[`${props.variant}-${props.type}`] : '';
     const [openClass, setOpenClass] = useState('');
 
+    const getInlineStyles = () => {
+        if (props.colour) {
+            let inlineStyles: { [k: string]: string } = {};
+
+            if (props.variant && props.variant == 'contained') {
+                inlineStyles['background'] = props.colour;
+                inlineStyles['color'] = '#fff';
+                return inlineStyles;
+            }
+
+            if (props.variant && props.variant == 'outlined') {
+                inlineStyles['border'] = `1px solid ${props.colour}`;
+                inlineStyles['background'] = transparentizeColour(props.colour, 0.15);
+                return inlineStyles;
+            }
+        }
+
+        return {};
+    }
+
     const closeSelf = () => {
         setOpenClass(styles.closed)
     }
 
+    const getIconColour = (defaultColour: string) => {
+        if (props.variant && props.variant == 'contained') {
+            return "#fff";
+        }
+
+        return props.colour || defaultColour;
+    }
+
     const getInfoIcon = () => {
-        let colour = props.colour || props.variant == 'contained' ? "#fff" : DEFAULT_INFO_COLOUR;
+        let colour = getIconColour(DEFAULT_INFO_COLOUR);
         return (
             <svg x="0px" y="0px" viewBox="0 0 512 512">
                 <path fill={colour} d="M257,0C116.39,0,0,114.39,0,255s116.39,257,257,257s255-116.39,255-257S397.61,0,257,0z M287,392c0,16.54-13.47,30-30,30
@@ -42,7 +69,7 @@ export const Notification: FunctionComponent<NotificationProps> = (props) => {
     }
 
     const getErrorIcon = () => {
-        let colour = props.colour || props.variant == 'contained' ? "#fff" : DEFAULT_ERROR_COLOUR;
+        let colour = getIconColour(DEFAULT_ERROR_COLOUR);
         return (
             <svg x="0px" y="0px" viewBox="0 0 51.976 51.976">
                 <path fill={colour} d="M44.373,7.603c-10.137-10.137-26.632-10.138-36.77,0c-10.138,10.138-10.137,26.632,0,36.77s26.632,10.138,36.77,0
@@ -55,7 +82,7 @@ export const Notification: FunctionComponent<NotificationProps> = (props) => {
     }
 
     const getSuccessIcon = () => {
-        let colour = props.colour || props.variant == 'contained' ? "#fff" : DEFAULT_SUCCESS_COLOUR;
+        let colour = getIconColour(DEFAULT_SUCCESS_COLOUR);
         return (
             <svg x="0px" y="0px" viewBox="0 0 408.576 408.576">
                 <path fill={colour} d="M204.288,0C91.648,0,0,91.648,0,204.288s91.648,204.288,204.288,204.288s204.288-91.648,204.288-204.288
@@ -67,7 +94,7 @@ export const Notification: FunctionComponent<NotificationProps> = (props) => {
     }
 
     const getWarningIcon = () => {
-        let colour = props.colour || props.variant == 'contained' ? "#fff" : DEFAULT_WARNING_COLOUR;
+        let colour = getIconColour(DEFAULT_WARNING_COLOUR);
         return (
             <svg x="0px" y="0px" viewBox="0 0 512 512">
                 <path fill={colour} d="M501.609,384.603L320.543,51.265c-13.666-23.006-37.802-36.746-64.562-36.746c-26.76,0-50.896,13.74-64.562,36.746
@@ -82,7 +109,7 @@ export const Notification: FunctionComponent<NotificationProps> = (props) => {
     }
 
     return (
-        <div className={`${styles.container} ${props.overridingClass} ${variantClass} ${openClass}`} data-testid="notification">
+        <div style={getInlineStyles()} className={`${styles.container} ${props.overridingClass} ${variantClass} ${openClass}`} data-testid="notification">
             {props.type == "info" && <span className={styles.icon}>{getInfoIcon()}</span>}
             {props.type == "error" && <span className={styles.icon}>{getErrorIcon()}</span>}
             {props.type == "success" && <span className={styles.icon}>{getSuccessIcon()}</span>}

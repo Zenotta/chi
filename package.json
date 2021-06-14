@@ -1,6 +1,6 @@
 {
   "name": "chi-ui",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "Chi is Zenotta's no-frills component library for use in blockchain UI applications",
   "main": "./build/index.js",
   "module": "./build/index.es.js",
@@ -15,7 +15,20 @@
     "type": "git",
     "url": "git+ssh://git@gitlab.com/zenotta/chi.git"
   },
-  "keywords": [],
+  "keywords": [
+    "component",
+    "components",
+    "design",
+    "framework",
+    "frontend",
+    "react",
+    "react-component",
+    "ui",
+    "zenotta",
+    "chi",
+    "ux",
+    "blockchain"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {

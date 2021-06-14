@@ -6,6 +6,26 @@ import { Dropdown, DropdownProps, ItemSelection } from './Dropdown';
 export default {
     title: 'Components/Atoms/Dropdown',
     component: Dropdown,
+    argTypes: {
+        listItems: {
+            description: 'The items to list in the dropdown. Must follow the prescribed data structure'
+        },
+        onItemClick: {
+            description: 'Function to call on dropdown item click'
+        },
+        dropdownMethod: {
+            description: 'How to trigger the dropdown, either through hover or click',
+        },
+        placement: {
+            description: 'Where to place the dropdown in relation to its child component',
+        },
+        visible: {
+            description: 'Whether the dropdown is visible on the child component or not'
+        },
+        overridingClass: {
+            description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
+        },
+    }
 } as Meta;
 
 

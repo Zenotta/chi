@@ -37,6 +37,9 @@ export default {
         type: "color"
       }
     },
+    overridingClass: {
+      description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
+  },
   }
 } as Meta;
 
@@ -66,6 +69,14 @@ Contained.args = {
   mainColour: STORYBOOK_VALS.primary,
   children: "Click Me",
   variant: 'contained'
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  mainColour: STORYBOOK_VALS.primary,
+  children: "Click Me",
+  variant: 'contained',
+  loading: true
 };
 
 export const Disabled = Template.bind({});

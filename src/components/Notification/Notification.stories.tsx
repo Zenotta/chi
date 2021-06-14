@@ -16,17 +16,17 @@ export default {
       description: 'Notification type'
     },
     variant: {
-      description: 'Visual variant type. Defaults to outlined'
+      description: 'Visual variant type. Defaults to text'
     },
     closable: {
       description: 'Whether the notification should be closable'
     },
-    closeItem: {
-      description: 'The default close icon can be replaced by a custom React element here'
-    },
-    heading: {
-      description: 'Whether to set a heading for the notification type'
-    },
+    // closeItem: {
+    //   description: 'The default close icon can be replaced by a custom React element here'
+    // },
+    // heading: {
+    //   description: 'Whether to set a heading for the notification type'
+    // },
     overridingClass: {
       description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
     }
