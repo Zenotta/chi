@@ -5,12 +5,14 @@ export interface TextInputProps {
     onSubmit?: Function;
     type?: TextType;
     id?: string;
-    label?: string;
+    placeholder?: string;
     onChange?: Function;
     loading?: boolean;
     loadingColour?: string;
     primaryColour?: string;
     actionColour?: string;
+    value?: string;
+    borderRadius?: string;
     shouldSubmitOnEnter?: boolean;
     autocompleteValues?: DropdownItem[];
     overridingClass?: string;

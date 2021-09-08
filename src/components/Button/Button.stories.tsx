@@ -7,7 +7,7 @@ export default {
   title: 'Components/Atoms/Button',
   component: Button,
   argTypes: {
-    variant: {
+    type: {
       description: 'Either an outlined or a contained style'
     },
     mainColour: {
@@ -61,21 +61,21 @@ export const Outlined = Template.bind({});
 Outlined.args = {
   mainColour: STORYBOOK_VALS.primary,
   children: "Click Me",
-  variant: 'outlined'
+  type: 'outlined'
 };
 
 export const Contained = Template.bind({});
 Contained.args = {
   mainColour: STORYBOOK_VALS.primary,
   children: "Click Me",
-  variant: 'contained'
+  type: 'contained'
 };
 
 export const Loading = Template.bind({});
 Loading.args = {
   mainColour: STORYBOOK_VALS.primary,
   children: "Click Me",
-  variant: 'contained',
+  type: 'contained',
   loading: true
 };
 

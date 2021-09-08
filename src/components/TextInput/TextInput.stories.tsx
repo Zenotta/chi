@@ -11,6 +11,9 @@ export default {
         iconType: {
             description: 'The type of icon to use. Defaults to `none`, for no icon'
         },
+        value: {
+            description: 'The value of the input, if a default is desired'
+        },
         primaryColour: {
             description: 'The theme colour for the component',
             control: {
@@ -52,7 +55,7 @@ export const Autocomplete = Template.bind({});
 Autocomplete.args = {
     primaryColour: "#000000",
     shouldSubmitOnEnter: true,
-    label: 'Try typing "item"',
+    placeholder: 'Try typing "item"',
     onSubmit: (val: string) => { console.log("Input was submitted! Input:", val) },
     autocompleteValues: [ { value: 'First Item' }, { value: 'Second Item' } ]
 };
@@ -60,13 +63,13 @@ Autocomplete.args = {
 export const Default = Template.bind({});
 Default.args = {
     primaryColour: "#000000",
-    label: 'Type standard text here...'
+    placeholder: 'Type standard text here...'
 };
 
 export const Loading = Template.bind({});
 Loading.args = {
     primaryColour: "#000000",
-    label: 'This input is loading',
+    placeholder: 'This input is loading',
     loading: true
 };
 
@@ -75,7 +78,7 @@ Password.args = {
     primaryColour: "#000000",
     type: 'password',
     iconType: 'text',
-    label: 'Type your password here...'
+    placeholder: 'Type your password here...'
 };
 
 export const Search = Template.bind({});
@@ -83,7 +86,7 @@ Search.args = {
     primaryColour: "#000000",
     type: 'search',
     iconType: 'text',
-    label: 'Type your search term here (try "item")',
+    placeholder: 'Type your search term here (try "item")',
     shouldSubmitOnEnter: true,
     onSubmit: (val: string) => { console.log("Input was submitted! Input:", val) },
     autocompleteValues: [ { value: 'First Item' }, { value: 'Second Item' } ]

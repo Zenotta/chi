@@ -13,28 +13,40 @@ export interface ButtonProps {
   startIcon?: React.ReactElement,
   overridingClass?: string,
   onClick?: Function,
-  variant?: 'contained' | 'outlined'
+  borderRadius?: string,
+  textTransform?: string,
+  type?: 'contained' | 'outlined'
 }
 
 const DEFAULT_TEXT_COLOUR = "#ffffff";
 const DEFAULT_BG_COLOUR = "#000000";
 
 export const Button: FunctionComponent<ButtonProps> = (props) => {
-  const variant = props.variant || 'outlined';
+  const type = props.type || 'outlined';
   const [clicked, setClicked] = useState(false);
   const borderColour = props.mainColour || DEFAULT_BG_COLOUR;
-  const bgColour = variant == 'contained' ? (props.mainColour || DEFAULT_BG_COLOUR) : '#ffffff';
-  const textColour = props.textColour || (variant == 'contained' ? DEFAULT_TEXT_COLOUR : props.mainColour);
+  const bgColour = type == 'contained' ? (props.mainColour || DEFAULT_BG_COLOUR) : '#ffffff';
+  const textColour = props.textColour || (type == 'contained' ? DEFAULT_TEXT_COLOUR : props.mainColour);
 
   /**
    * Gets the inline styling for a disabled state
    */
   const getDisabledInlineStyles = () => {
-    return {
-      backgroundColor: variant == 'contained' ? 'rgb(244, 245, 248)' : '#fff',
+    let style: any = {
+      backgroundColor: type == 'contained' ? 'rgb(244, 245, 248)' : '#fff',
       border: `1px solid rgb(213, 216, 221)`,
       color: STORYBOOK_VALS.disabled
+    };
+
+    if (props.borderRadius) {
+      style['borderRadius'] = props.borderRadius;
     }
+
+    if (props.textTransform) {
+      style['textTransform'] = props.textTransform;
+    }
+
+    return style;
   }
 
   /**
@@ -44,23 +56,33 @@ export const Button: FunctionComponent<ButtonProps> = (props) => {
     if (props.disabled) { return STORYBOOK_VALS.disabled }
     if (props.loadingColour) { return props.loadingColour }
 
-    if (props.textColour && variant == 'contained') { return props.textColour }
-    if (props.mainColour && variant == 'outlined') { return props.mainColour }
+    if (props.textColour && type == 'contained') { return props.textColour }
+    if (props.mainColour && type == 'outlined') { return props.mainColour }
 
-    return variant == 'contained' ? DEFAULT_TEXT_COLOUR : DEFAULT_BG_COLOUR;
+    return type == 'contained' ? DEFAULT_TEXT_COLOUR : DEFAULT_BG_COLOUR;
   }
 
   /**
    * Handles a click event
    */
   const handleClick = () => {
-    const newBg = variant == 'contained' ? lightenDarkenColour(bgColour, -25) : transparentizeColour(borderColour, .3);
+    const newBg = type == 'contained' ? lightenDarkenColour(bgColour, -25) : transparentizeColour(borderColour, .3);
 
-    setInlineStyles(props.disabled ? getDisabledInlineStyles : {
+    let style: any = {
       backgroundColor: newBg,
       border: inlineStyles.border,
       color: inlineStyles.color
-    });
+    };
+
+    if (props.borderRadius) {
+      style['borderRadius'] = props.borderRadius;
+    }
+
+    if (props.textTransform) {
+      style['textTransform'] = props.textTransform;
+    }
+
+    setInlineStyles(props.disabled ? getDisabledInlineStyles : style);
 
     if (props.onClick) {
       props.onClick();
@@ -75,13 +97,22 @@ export const Button: FunctionComponent<ButtonProps> = (props) => {
    * @param e {any}
    */
   const handleMouseEnter = (e: any) => {
-    const newBg = variant == 'contained' ? lightenDarkenColour(bgColour, -15) : transparentizeColour(borderColour, .1);
-
-    setInlineStyles(props.disabled ? getDisabledInlineStyles : {
+    const newBg = type == 'contained' ? lightenDarkenColour(bgColour, -15) : transparentizeColour(borderColour, .1);
+    let style: any = {
       backgroundColor: newBg,
       border: inlineStyles.border,
       color: inlineStyles.color
-    });
+    };
+
+    if (props.borderRadius) {
+      style['borderRadius'] = props.borderRadius;
+    }
+
+    if (props.textTransform) {
+      style['textTransform'] = props.textTransform;
+    }
+
+    setInlineStyles(props.disabled ? getDisabledInlineStyles : style);
   }
 
   /**
@@ -90,11 +121,39 @@ export const Button: FunctionComponent<ButtonProps> = (props) => {
    * @param e {any}
    */
   const handleMouseLeave = (e: any) => {
-    setInlineStyles(props.disabled ? getDisabledInlineStyles : {
+    let style: any = {
       backgroundColor: bgColour,
       border: inlineStyles.border,
       color: inlineStyles.color
-    });
+    };
+
+    if (props.borderRadius) {
+      style['borderRadius'] = props.borderRadius;
+    }
+
+    if (props.textTransform) {
+      style['textTransform'] = props.textTransform;
+    }
+
+    setInlineStyles(props.disabled ? getDisabledInlineStyles : style);
+  }
+
+  const getRegularInlineStyles = () => {
+    let style: any = {
+      backgroundColor: bgColour,
+      border: `1px solid ${borderColour}`,
+      color: textColour
+    };
+
+    if (props.borderRadius) {
+      style['borderRadius'] = props.borderRadius;
+    }
+
+    if (props.textTransform) {
+      style['textTransform'] = props.textTransform;
+    }
+
+    return style;
   }
 
   /** State watch */
@@ -110,17 +169,13 @@ export const Button: FunctionComponent<ButtonProps> = (props) => {
 
   // Set colouring variablts
   const loadingColour = getLoadingColour();
-  const [inlineStyles, setInlineStyles] = useState<any>(props.disabled ? getDisabledInlineStyles() : {
-    backgroundColor: bgColour,
-    border: `1px solid ${borderColour}`,
-    color: textColour
-  });
+  const [inlineStyles, setInlineStyles] = useState<any>(props.disabled ? getDisabledInlineStyles() : getRegularInlineStyles());
 
   return (
     <button
       disabled={props.disabled}
       style={inlineStyles}
-      className={`${styles.container} ${styles[variant]} ${props.overridingClass}`}
+      className={`${styles.container} ${styles[type]} ${props.overridingClass}`}
       onMouseEnter={e => handleMouseEnter(e)}
       onMouseLeave={e => handleMouseLeave(e)}
       onClick={() => handleClick()}>

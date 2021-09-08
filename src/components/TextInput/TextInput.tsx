@@ -18,12 +18,14 @@ export interface TextInputProps {
     onSubmit?: Function,
     type?: TextType,
     id?: string,
-    label?: string,
+    placeholder?: string,
     onChange?: Function,
     loading?: boolean,
     loadingColour?: string,
     primaryColour?: string,
     actionColour?: string,
+    value?: string,
+    borderRadius?: string,
     shouldSubmitOnEnter?: boolean,
     autocompleteValues?: DropdownItem[],
     overridingClass?: string,
@@ -37,7 +39,7 @@ export const TextInput = (props: TextInputProps) => {
     const iconType = props.iconType || 'none';
     const loadingColour = props.loadingColour ? props.loadingColour : props.primaryColour ? props.primaryColour : "#000000";
 
-    const [value, setValue] = useState(props.label ? props.label : '');
+    const [value, setValue] = useState(props.value ? props.value : '');
     const [matchesAreVisible, setMatchesAreVisible] = useState(false);
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [autocompleteMatches, setAutoCompleteMatches] = useState<DropdownItem[]>([]);
@@ -111,10 +113,13 @@ export const TextInput = (props: TextInputProps) => {
     /** Gets the text field input */
     const getTextInputInput = () => {
         let typeToSet = type == 'password' && passwordVisible ? 'text' : type; 
+        let style = props.borderRadius ? { 'borderRadius': props.borderRadius } : {};
         
         return (
             <input 
-                placeholder={props.label}
+                value={value}
+                placeholder={props.placeholder}
+                style={style}
                 className={`${styles.input} ${css(pseudoStyles.focus)}`}
                 type={typeToSet} onChange={onTextInputChange} onKeyDown={onTextInputKeyDown} />
         );

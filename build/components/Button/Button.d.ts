@@ -9,6 +9,8 @@ export interface ButtonProps {
     startIcon?: React.ReactElement;
     overridingClass?: string;
     onClick?: Function;
-    variant?: 'contained' | 'outlined';
+    borderRadius?: string;
+    textTransform?: string;
+    type?: 'contained' | 'outlined';
 }
 export declare const Button: FunctionComponent<ButtonProps>;
