@@ -14,7 +14,7 @@ export interface PaginationProps {
     backgroundColor?: string,
     hoverColor?: string,
     borderColor?: string,
-    overridingClass?: string,
+    className?: string,
     disableArrows?: boolean,
     enableStrokeAnimation?: boolean,
     enableArrowBorder?: boolean,
@@ -118,7 +118,7 @@ export const Pagination = forwardRef((props: PaginationProps, ref) => {
             {pageNumbers.length > 1 && (
                 <nav
                     style={setTheme()}
-                    className={`${styles.pagination} ${props.overridingClass}`}
+                    className={`${styles.pagination} ${props.className}`}
                 >
                     {!props.disableArrows && (
                         <div className={`${styles.arrowContainer} ${styles.arrowLeft}`}>

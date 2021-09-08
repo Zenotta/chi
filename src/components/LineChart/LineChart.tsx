@@ -5,7 +5,7 @@ import styles from './LineChart.scss';
 export interface LineChartProps {
     data: LineChartDatum[],
     grid?: 'vertical' | 'horizontal',
-    overridingClass?: string,
+    className?: string,
     lineColour?: string
 }
 
@@ -57,7 +57,7 @@ export class LineChart extends React.Component<LineChartProps, LineChartState> {
         let { props } = this;
 
         return (
-            <div ref={el => (this.containerRef = el)} className={`${styles.container} ${props.overridingClass}`}>
+            <div ref={el => (this.containerRef = el)} className={`${styles.container} ${props.className}`}>
                 <svg ref={this.chartGenRef} className={styles.chart}></svg>
             </div>
         );

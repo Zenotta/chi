@@ -2,7 +2,7 @@ import React from 'react';
 export interface LineChartProps {
     data: LineChartDatum[];
     grid?: 'vertical' | 'horizontal';
-    overridingClass?: string;
+    className?: string;
     lineColour?: string;
 }
 interface LineChartState {

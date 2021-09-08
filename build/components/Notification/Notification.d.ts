@@ -4,7 +4,7 @@ export interface NotificationProps {
     type: NotificationType;
     closable?: boolean;
     colour?: string;
-    overridingClass?: string;
+    className?: string;
     variant?: 'text' | 'outlined' | 'contained';
 }
 export declare const Notification: FunctionComponent<NotificationProps>;

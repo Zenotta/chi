@@ -17,7 +17,7 @@ export interface TableProps {
     orderBy?: string,
     order?: 'asc' | 'desc',
     rowCount?: number,
-    overridingClass?: string,
+    className?: string,
     zebraStripes?: boolean
 }
 
@@ -161,7 +161,7 @@ export const Table = (props: TableProps) => {
     const [orderBy, setOrderBy] = useState(props.orderBy ? mapValueToId(props.orderBy) : mapValueToId(props.header[0].value));
 
     return (
-        <div className={`${styles.container} ${props.overridingClass}`}>
+        <div className={`${styles.container} ${props.className}`}>
             <table className={styles.table} role="table" aria-label="data table">
                 <thead>
                     <tr>

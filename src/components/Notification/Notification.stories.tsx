@@ -27,7 +27,7 @@ export default {
     // heading: {
     //   description: 'Whether to set a heading for the notification type'
     // },
-    overridingClass: {
+    className: {
       description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
     }
   }

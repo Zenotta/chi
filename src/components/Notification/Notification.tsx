@@ -12,7 +12,7 @@ export interface NotificationProps {
     type: NotificationType,
     closable?: boolean,
     colour?: string,
-    overridingClass?: string,
+    className?: string,
     variant?: 'text' | 'outlined' | 'contained'
 }
 
@@ -109,7 +109,7 @@ export const Notification: FunctionComponent<NotificationProps> = (props) => {
     }
 
     return (
-        <div style={getInlineStyles()} className={`${styles.container} ${props.overridingClass} ${variantClass} ${openClass}`} data-testid="notification">
+        <div style={getInlineStyles()} className={`${styles.container} ${props.className} ${variantClass} ${openClass}`} data-testid="notification">
             {props.type == "info" && <span className={styles.icon}>{getInfoIcon()}</span>}
             {props.type == "error" && <span className={styles.icon}>{getErrorIcon()}</span>}
             {props.type == "success" && <span className={styles.icon}>{getSuccessIcon()}</span>}

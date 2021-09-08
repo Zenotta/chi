@@ -4,13 +4,13 @@ import styles from './Loading.scss';
 export interface LoadingProps {
     type: 'round' | 'square',
     colour?: string,
-    overridingClass?: string
+    className?: string
 }
 
 export const Loading = (props: LoadingProps) => {
     let lineCap: 'butt' | 'round' = props.type == 'square' ? 'butt' : props.type;
     return (
-        <div className={`${styles.loadingContainer} ${props.overridingClass}`} role="status">
+        <div className={`${styles.loadingContainer} ${props.className}`} role="status">
             <svg
                 className={styles.loadingSvg}
                 viewBox="0 0 100 100"
