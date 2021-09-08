@@ -28,7 +28,7 @@ export interface TextInputProps {
     borderRadius?: string,
     shouldSubmitOnEnter?: boolean,
     autocompleteValues?: DropdownItem[],
-    overridingClass?: string,
+    className?: string,
     iconType?: 'none' | 'text' | 'outlined' | 'contained'
 }
 
@@ -147,7 +147,7 @@ export const TextInput = (props: TextInputProps) => {
     }
 
     return (
-        <div className={`${styles.container} ${props.overridingClass}`} data-testid="textInputContainer">
+        <div className={`${styles.container} ${props.className}`} data-testid="textInputContainer">
             {props.autocompleteValues &&
                 <div className={styles.dropdownContainer}>
                     <Dropdown listItems={autocompleteMatches} visible={matchesAreVisible}>

@@ -41,7 +41,7 @@ export default {
         shouldSubmitOnEnter: {
             description: 'Whether to trigger the `onSubmit` function when the user presses the Enter key'
         },
-        overridingClass: {
+        className: {
             description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
         },
     }

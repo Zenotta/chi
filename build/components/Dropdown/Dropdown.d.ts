@@ -10,7 +10,7 @@ export interface DropdownProps {
     listItems: DropdownItem[];
     dropdownMethod?: 'hover' | 'click';
     placement?: Placement;
-    overridingClass?: string;
+    className?: string;
     visible?: boolean;
     onItemClick?: Function;
 }

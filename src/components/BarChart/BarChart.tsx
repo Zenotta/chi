@@ -7,7 +7,7 @@ export interface BarChartProps {
     barType?: 'round' | 'square',
     barPadding?: number,
     barColour?: string,
-    overridingClass?: string,
+    className?: string,
     showBackgroundColumns?: boolean
 }
 
@@ -64,7 +64,7 @@ export class BarChart extends React.Component<BarChartProps, {}> {
         let { props } = this;
 
         return (
-            <div ref={el => (this.containerRef = el)} className={`${styles.container} ${props.overridingClass}`}>
+            <div ref={el => (this.containerRef = el)} className={`${styles.container} ${props.className}`}>
                 <svg ref={this.chartGenRef} className={styles.chart}></svg>
             </div>
         );

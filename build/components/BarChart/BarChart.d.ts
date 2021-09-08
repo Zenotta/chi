@@ -4,7 +4,7 @@ export interface BarChartProps {
     barType?: 'round' | 'square';
     barPadding?: number;
     barColour?: string;
-    overridingClass?: string;
+    className?: string;
     showBackgroundColumns?: boolean;
 }
 interface BarChartDatum {

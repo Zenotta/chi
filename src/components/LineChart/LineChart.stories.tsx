@@ -18,7 +18,7 @@ export default {
         grid: {
             description: 'The orientation of the background grid'
         },
-        overridingClass: {
+        className: {
             description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
         }
     }

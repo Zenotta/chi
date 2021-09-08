@@ -66,7 +66,7 @@ export default {
     height: {
       description: 'Height of the component. Defaults to 100% of its parent'
     },
-    overridingClass: {
+    className: {
       description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
     },
   }

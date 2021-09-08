@@ -2,6 +2,6 @@
 export interface LoadingProps {
     type: 'round' | 'square';
     colour?: string;
-    overridingClass?: string;
+    className?: string;
 }
 export declare const Loading: (props: LoadingProps) => JSX.Element;

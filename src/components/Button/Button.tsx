@@ -11,7 +11,7 @@ export interface ButtonProps {
   disabled?: boolean,
   endIcon?: React.ReactElement,
   startIcon?: React.ReactElement,
-  overridingClass?: string,
+  className?: string,
   onClick?: Function,
   borderRadius?: string,
   textTransform?: string,
@@ -175,7 +175,7 @@ export const Button: FunctionComponent<ButtonProps> = (props) => {
     <button
       disabled={props.disabled}
       style={inlineStyles}
-      className={`${styles.container} ${styles[type]} ${props.overridingClass}`}
+      className={`${styles.container} ${styles[type]} ${props.className}`}
       onMouseEnter={e => handleMouseEnter(e)}
       onMouseLeave={e => handleMouseLeave(e)}
       onClick={() => handleClick()}>

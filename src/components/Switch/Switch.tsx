@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './Switch.scss';
 
 export interface SwitchProps {
-    overridingClass?: string,
+    className?: string,
     onClick?: Function,
     leftChild?: string,
     rightChild?: string,
@@ -109,7 +109,7 @@ export const Switch = (props: SwitchProps) => {
     }
 
     return (
-        <div style={getInlineStyles()} className={`${styles.container} ${props.overridingClass} ${onClass}`} onClick={() => onSwitchClick()}>
+        <div style={getInlineStyles()} className={`${styles.container} ${props.className} ${onClass}`} onClick={() => onSwitchClick()}>
             <div style={getSwitchInlineStyles()} className={`${styles.switchPoint} ${onClass}`}></div>
             {props.leftChild && props.rightChild && <div className={styles.children} style={getSwitchTextStyles()}>
                 <p className={styles.leftChild} style={getChildStyle(true)}>{props.leftChild}</p>

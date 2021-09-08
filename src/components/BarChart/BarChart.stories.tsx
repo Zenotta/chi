@@ -27,7 +27,7 @@ export default {
             defaultValue: true,
             description: 'Whether to show the chart\'s background columns'
         },
-        overridingClass: {
+        className: {
             description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
         },
     }

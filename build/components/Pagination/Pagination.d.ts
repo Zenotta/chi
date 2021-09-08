@@ -11,7 +11,7 @@ export interface PaginationProps {
     backgroundColor?: string;
     hoverColor?: string;
     borderColor?: string;
-    overridingClass?: string;
+    className?: string;
     disableArrows?: boolean;
     enableStrokeAnimation?: boolean;
     enableArrowBorder?: boolean;

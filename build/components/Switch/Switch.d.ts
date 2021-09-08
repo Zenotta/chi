@@ -1,6 +1,6 @@
 /// <reference types="react" />
 export interface SwitchProps {
-    overridingClass?: string;
+    className?: string;
     onClick?: Function;
     leftChild?: string;
     rightChild?: string;

@@ -21,7 +21,7 @@ export interface DropdownProps {
     listItems: DropdownItem[],
     dropdownMethod?: 'hover' | 'click',
     placement?: Placement,
-    overridingClass?: string,
+    className?: string,
     visible?: boolean,
     onItemClick?: Function,
 }
@@ -56,12 +56,12 @@ export const Dropdown: FunctionComponent<DropdownProps> = (props) => {
     }
 
     return (
-        <div className={`${styles.container} ${props.overridingClass}`} data-testid="dropdown">
+        <div className={`${styles.container} ${props.className}`} data-testid="dropdown">
             <RcDropdown
                 placement={placement}
                 trigger={[dropdownMethod]}
                 overlay={getListItemMenu()}
-                overlayClassName={`${styles.dropdownList} ${props.overridingClass}`}
+                overlayClassName={`${styles.dropdownList} ${props.className}`}
                 animation="slide-up"
                 {...(props.visible !== undefined && { visible: props.visible })}>
                 <div className={styles.hoverContainer}>

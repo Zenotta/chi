@@ -22,7 +22,7 @@ export default {
         visible: {
             description: 'Whether the dropdown is visible on the child component or not'
         },
-        overridingClass: {
+        className: {
             description: 'A CSS class that can be passed in to override the component\'s native styling, from root'
         },
     }

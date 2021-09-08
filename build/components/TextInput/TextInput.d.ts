@@ -15,7 +15,7 @@ export interface TextInputProps {
     borderRadius?: string;
     shouldSubmitOnEnter?: boolean;
     autocompleteValues?: DropdownItem[];
-    overridingClass?: string;
+    className?: string;
     iconType?: 'none' | 'text' | 'outlined' | 'contained';
 }
 export declare const TextInput: (props: TextInputProps) => JSX.Element;
