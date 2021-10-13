@@ -30,7 +30,12 @@ export default {
     resolve(),
     commonjs(),
     typescript({
-      exclude: ['**/*.stories.tsx', '**/*.test.tsx'],
+      exclude: [
+        "node_modules",
+        "lib",
+        '**/*.stories.tsx',
+        '**/*.test.tsx'
+      ],
     }),
     postcss({
       extract: false,
